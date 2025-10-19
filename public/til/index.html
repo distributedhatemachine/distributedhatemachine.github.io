@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en-us"
+  dir="ltr">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=53627&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+<link rel="icon" type="image/ico" href="//localhost:53627/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="//localhost:53627/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="//localhost:53627/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="//localhost:53627/android-chrome-192x192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="//localhost:53627/apple-touch-icon.png">
+
+<meta name="description" content=""/>
+
+
+
+<title>
+    
+    Today I Learned | Distributed Hate Machine
+    
+</title>
+
+<link rel="canonical" href="//localhost:53627/til/"/>
+
+<meta property="og:url" content="//localhost:53627/til/">
+  <meta property="og:site_name" content="Distributed Hate Machine">
+  <meta property="og:title" content="Today I Learned">
+  <meta property="og:description" content="2025-10-19 # https://www.youtube.com/watch?v=SlkEW4C2kd4 https://modal.com/llm-almanac/how-to-benchmark
+2025-10-15 # https://www.aleksagordic.com/blog/vllm https://www.aleksagordic.com/blog/matmul
+2025-10-13 # https://www.thonking.ai/p/strangely-matrix-multiplications https://modal.com/blog/reverse-engineer-flash-attention-4 https://www.youtube.com/watch?v=uZTtViomW6w https://www.cs.cmu.edu/afs/cs/academic/class/15869-f11/www/readings/lindholm08_tesla.pdf
+2025-10-12 # LLM for kernels KernelBench Accelerating GenAI part 1 / SAM Fast SAM Fast code Accelerating GenAI part 2 / GPT Fast GPT Fast Code Way to faster matmul using sparsification Recomputation using nerdy algos Paper on optimizing data movement in transformers TorchDynamo FlexAttention Supporting Mixtral in GPT Fast What Shapes Do Matrix Multiplications Like? 2025-10-11 # Lora serving # Dynamically swap LoRA adapters in PEFT vLLM LoRA Serving Multi-LoRA Serving from HF TGI Multi-LoRA inference server from Predibase Uncategorized # Great paper on Automatic Differentiation Distributed Training Lexicon All Models Are Wrong: Concepts of Statistical Learning Epic guide on writing CV, statement of purpose, letters of recommendation, specifically for applying to EPFL Domain Specific Architectures">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/assets/combined.min.56b1873d8852f8a5a109abda36c1bfcde55cb48e5bcbe0d8c934a196a7dc374a.css" media="all">
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+</head>
+
+
+
+
+
+
+
+<body class="auto">
+
+  <div class="content">
+    <header>
+      
+
+<div class="header">
+
+    
+
+    <h1 class="header-title">
+        <a href="//localhost:53627/">Distributed Hate Machine</a>
+    </h1>
+
+    <div class="header-menu">
+        
+
+        
+        
+
+        <p
+            class="small ">
+            <a href="/" >
+                /home
+            </a>
+        </p>
+        
+
+        <p
+            class="small ">
+            <a href="/posts" >
+                /posts
+            </a>
+        </p>
+        
+
+        <p
+            class="small ">
+            <a href="/about" >
+                /about
+            </a>
+        </p>
+        
+
+        <p
+            class="small ">
+            <a href="/til" >
+                /til
+            </a>
+        </p>
+        
+        
+    </div>
+
+    
+
+</div>
+
+    </header>
+
+    <main class="main">
+      
+
+
+
+
+<div class="breadcrumbs"><a href="/">Home</a><span class="breadcrumbs-separator">/</span>
+        <a href="/til/">Today I Learned</a></div>
+
+
+<div >
+  <article>
+    <header class="single-intro-container">
+        
+        <h1 class="single-title">Today I Learned</h1>
+        
+        
+    </header>
+      <aside class="toc">
+        <p><strong>Table of contents</strong></p>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#2025-10-19">2025-10-19</a></li>
+    <li><a href="#2025-10-15">2025-10-15</a></li>
+    <li><a href="#2025-10-13">2025-10-13</a></li>
+    <li><a href="#2025-10-12">2025-10-12</a></li>
+    <li><a href="#2025-10-11">2025-10-11</a>
+      <ul>
+        <li><a href="#lora-serving">Lora serving</a></li>
+        <li><a href="#uncategorized">Uncategorized</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </aside>
+    
+    <div class="single-content">
+      <h2 class="heading" id="2025-10-19">
+  2025-10-19
+  <a class="anchor" href="#2025-10-19">#</a>
+</h2>
+<p><a href="https://www.youtube.com/watch?v=SlkEW4C2kd4">https://www.youtube.com/watch?v=SlkEW4C2kd4</a>
+<a href="https://modal.com/llm-almanac/how-to-benchmark">https://modal.com/llm-almanac/how-to-benchmark</a></p>
+<h2 class="heading" id="2025-10-15">
+  2025-10-15
+  <a class="anchor" href="#2025-10-15">#</a>
+</h2>
+<p><a href="https://www.aleksagordic.com/blog/vllm">https://www.aleksagordic.com/blog/vllm</a>
+<a href="https://www.aleksagordic.com/blog/matmul">https://www.aleksagordic.com/blog/matmul</a></p>
+<h2 class="heading" id="2025-10-13">
+  2025-10-13
+  <a class="anchor" href="#2025-10-13">#</a>
+</h2>
+<p><a href="https://www.thonking.ai/p/strangely-matrix-multiplications">https://www.thonking.ai/p/strangely-matrix-multiplications</a>
+<a href="https://modal.com/blog/reverse-engineer-flash-attention-4">https://modal.com/blog/reverse-engineer-flash-attention-4</a>
+<a href="https://www.youtube.com/watch?v=uZTtViomW6w">https://www.youtube.com/watch?v=uZTtViomW6w</a>
+<a href="https://www.cs.cmu.edu/afs/cs/academic/class/15869-f11/www/readings/lindholm08_tesla.pdf">https://www.cs.cmu.edu/afs/cs/academic/class/15869-f11/www/readings/lindholm08_tesla.pdf</a></p>
+<h2 class="heading" id="2025-10-12">
+  2025-10-12
+  <a class="anchor" href="#2025-10-12">#</a>
+</h2>
+<ul>
+<li><a href="https://cognition.ai/blog/kevin-32b">LLM for kernels</a></li>
+<li><a href="https://scalingintelligence.stanford.edu/blogs/kernelbench/">KernelBench</a></li>
+<li><a href="https://pytorch.org/blog/accelerating-generative-ai/">Accelerating GenAI part 1 / SAM Fast</a></li>
+<li><a href="https://github.com/meta-pytorch/segment-anything-fast/tree/main">SAM Fast code</a></li>
+<li><a href="https://pytorch.org/blog/accelerating-generative-ai/">Accelerating GenAI part 2 / GPT Fast</a></li>
+<li><a href="https://pytorch.org/blog/accelerating-generative-ai/">GPT Fast Code</a></li>
+<li><a href="https://developer.nvidia.com/blog/exploiting-ampere-structured-sparsity-with-cusparselt">Way to faster matmul using sparsification</a></li>
+<li><a href="https://dev-discuss.pytorch.org/t/min-cut-optimal-recomputation-i-e-activation-checkpointing-with-aotautograd/467">Recomputation using nerdy algos</a></li>
+<li><a href="https://arxiv.org/pdf/2007.00072">Paper on optimizing data movement in transformers</a></li>
+<li><a href="https://dev-discuss.pytorch.org/t/torchdynamo-an-experiment-in-dynamic-python-bytecode-transformation/361">TorchDynamo</a></li>
+<li><a href="https://pytorch.org/blog/flexattention/">FlexAttention</a></li>
+<li><a href="https://www.thonking.ai/p/short-supporting-mixtral-in-gpt-fast">Supporting Mixtral in GPT Fast</a></li>
+<li><a href="https://www.thonking.ai/p/what-shapes-do-matrix-multiplications">What Shapes Do Matrix Multiplications Like?</a></li>
+</ul>
+<h2 class="heading" id="2025-10-11">
+  2025-10-11
+  <a class="anchor" href="#2025-10-11">#</a>
+</h2>
+<h3 class="heading" id="lora-serving">
+  Lora serving
+  <a class="anchor" href="#lora-serving">#</a>
+</h3>
+<ul>
+<li><a href="https://huggingface.co/docs/peft/package_reference/hotswap">Dynamically swap LoRA adapters in PEFT</a></li>
+<li><a href="https://docs.vllm.ai/en/stable/features/lora.html#dynamically-serving-lora-adapters">vLLM LoRA Serving</a></li>
+<li><a href="https://huggingface.co/blog/multi-lora-serving">Multi-LoRA Serving from HF TGI</a></li>
+<li><a href="https://github.com/predibase/lorax">Multi-LoRA inference server from Predibase</a></li>
+</ul>
+<h3 class="heading" id="uncategorized">
+  Uncategorized
+  <a class="anchor" href="#uncategorized">#</a>
+</h3>
+<ul>
+<li><a href="https://arxiv.org/pdf/1502.05767">Great paper on Automatic Differentiation</a></li>
+<li><a href="https://distributedlexicon.com/">Distributed Training Lexicon</a></li>
+<li><a href="https://allmodelsarewrong.github.io/">All Models Are Wrong: Concepts of Statistical Learning</a></li>
+<li><a href="https://epic-guide.github.io/applying">Epic guide on writing CV, statement of purpose, letters of recommendation, specifically for applying to EPFL</a></li>
+<li><a href="https://fleetwood.dev/posts/domain-specific-architectures">Domain Specific Architectures</a></li>
+</ul>
+
+    </div>
+  </article>
+
+  
+
+  
+
+  
+  
+
+<div class="single-pagination">
+    <hr />
+
+    <div class="flexnowrap">
+
+        <div class="single-pagination-prev">
+            
+        </div>
+
+        <div class="single-pagination-next">
+            
+            <div class="single-pagination-container-next">
+                <div class="single-pagination-text">
+                    <a href="/about/">
+                        About me
+                    </a>
+                </div>
+                <div class="single-pagination-text">→</div>
+            </div>
+            
+        </div>
+
+    </div>
+
+    <hr />
+</div>
+
+
+
+  
+
+  
+
+  
+  <div class="back-to-top">
+    <a href="#top">
+      back to top
+    </a>
+  </div>
+  
+
+</div>
+
+
+    </main>
+  </div>
+
+  
+  
+
+
+
+
+
+    
+
+
+
+
+  <footer>
+    
+
+    
+    
+
+
+
+
+
+    
+
+
+
+
+    
+    <p>Powered by
+        <a href="https://gohugo.io/">Hugo</a>
+        and
+        <a href="https://github.com/tomfran/typo">tomfran/typo</a>
+    </p>
+    
+    
+    
+
+
+  </footer>
+
+  
+  <link rel="stylesheet" 
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+  
+<script defer 
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
+
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body);"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false }
+      ]
+    });
+  });
+</script>
+  
+</body>
+
+<script src="/js/theme-switch.js"></script>
+<script defer src="/js/copy-code.js"></script>
+</html>

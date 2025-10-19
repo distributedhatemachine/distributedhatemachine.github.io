@@ -1,0 +1,76 @@
+baseURL = 'wtfnukee.github.io'
+languageCode = 'en-us'
+title = 'Distributed Hate Machine'
+theme = 'typo'
+
+[taxonomies]
+tag = 'tags'
+
+[params]
+# Meta description
+description = "Distributed Hate Machine"
+
+# Appearance settings
+theme = 'auto'
+colorPalette = 'default'
+hideHeader = false
+
+# Intro on main page, content is markdown
+homeIntroTitle = 'Hi!'
+homeIntroContent = """
+pls hire
+"""
+
+# Collection to display on home
+homeCollectionTitle = 'Posts'
+homeCollection = 'posts'
+
+# Lists parameters
+paginationSize = 100
+listSummaries = true
+listDateFormat = '2 Jan 2006'
+
+# Breadcrumbs
+[params.breadcrumbs]
+enabled = true
+showCurrentPage = true
+home = "Home"
+
+# Social icons
+[[params.social]]
+name = "x"
+url = "https://x.com/foldll"
+
+[[params.social]]
+name = "telegram"
+url = "https://t.me/foldll"
+
+[[params.social]]
+name = "github"
+url = "https://github.com/wtfnukee"
+
+# Main menu pages
+[[params.menu]]
+name = "home"
+url = "/"
+
+[[params.menu]]
+name = "posts"
+url = "/posts"
+
+[[params.menu]]
+name = "about"
+url = "/about"
+
+[[params.menu]]
+name = "til"
+url = "/til"
+
+# Syntax highlight on code blocks
+[markup]
+[markup.highlight]
+style = 'python'
+
+[caches]
+  [caches.images]
+    dir = ':cacheDir/images'
