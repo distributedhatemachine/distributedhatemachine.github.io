@@ -7,19 +7,19 @@ hideBackToTop: false
 ---
 
 ## 2025-10-19
-https://www.youtube.com/watch?v=SlkEW4C2kd4
-https://modal.com/llm-almanac/how-to-benchmark
+- [How containers work in Modal](https://www.youtube.com/watch?v=SlkEW4C2kd4)
+- [Benchmarking inference engines](https://modal.com/llm-almanac/how-to-benchmark)
 
 
 ## 2025-10-15
-[Digging in vLLM](https://www.aleksagordic.com/blog/vllm)
-[How highperf matmul kernels work](https://www.aleksagordic.com/blog/matmul)
+- [Digging in vLLM](https://www.aleksagordic.com/blog/vllm)
+- [How highperf matmul kernels work](https://www.aleksagordic.com/blog/matmul)
 
 ## 2025-10-13
-https://www.thonking.ai/p/strangely-matrix-multiplications
-https://modal.com/blog/reverse-engineer-flash-attention-4
-https://www.youtube.com/watch?v=uZTtViomW6w
-https://www.cs.cmu.edu/afs/cs/academic/class/15869-f11/www/readings/lindholm08_tesla.pdf
+- [Matmuls are weird](https://www.thonking.ai/p/strangely-matrix-multiplications)
+- [Flash Attention 4](https://modal.com/blog/reverse-engineer-flash-attention-4)
+- [Great talk on Nvidia Cutile](https://www.youtube.com/watch?v=uZTtViomW6w)
+- [Nvidia Tesla paper](https://www.cs.cmu.edu/afs/cs/academic/class/15869-f11/www/readings/lindholm08_tesla.pdf)
 
 
 ## 2025-10-12
