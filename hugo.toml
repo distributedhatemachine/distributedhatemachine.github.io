@@ -3,6 +3,8 @@ languageCode = 'en-us'
 title = 'Distributed Hate Machine'
 theme = 'typo'
 
+googleAnalytics = "G-0KWR5673B0"
+
 [taxonomies]
 tag = 'tags'
 
@@ -18,7 +20,8 @@ hideHeader = false
 # Intro on main page, content is markdown
 homeIntroTitle = 'Hi!'
 homeIntroContent = """
-pls hire
+applied math undergrad\n
+pls hire, cv upon request (im bit shy)
 """
 
 # Collection to display on home
