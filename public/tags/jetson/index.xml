@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Jetson on Distributed Hate Machine</title>
-    <link>//localhost:1313/tags/jetson/</link>
+    <link>//localhost:61799/tags/jetson/</link>
     <description>Recent content in Jetson on Distributed Hate Machine</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 19 Oct 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="//localhost:1313/tags/jetson/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 20 Oct 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="//localhost:61799/tags/jetson/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Reviving Jetson Nano to run some LLMs</title>
-      <link>//localhost:1313/posts/jetson/</link>
-      <pubDate>Sun, 19 Oct 2025 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/posts/jetson/</guid>
+      <link>//localhost:61799/posts/jetson/</link>
+      <pubDate>Mon, 20 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>//localhost:61799/posts/jetson/</guid>
       <description>Large Language Models—minus the Large—on a tiny Jetson Nano.</description>
     </item>
   </channel>

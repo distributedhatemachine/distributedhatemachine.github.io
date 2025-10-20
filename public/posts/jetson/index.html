@@ -2,7 +2,7 @@
 <html lang="en-us"
   dir="ltr">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=61799&amp;path=livereload" data-no-instant defer></script>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
 
@@ -20,11 +20,11 @@
 
 
 
-<link rel="icon" type="image/ico" href="//localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="//localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="//localhost:1313/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="192x192" href="//localhost:1313/android-chrome-192x192.png">
-<link rel="apple-touch-icon" sizes="180x180" href="//localhost:1313/apple-touch-icon.png">
+<link rel="icon" type="image/ico" href="//localhost:61799/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="//localhost:61799/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="//localhost:61799/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="//localhost:61799/android-chrome-192x192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="//localhost:61799/apple-touch-icon.png">
 
 <meta name="description" content="Large Language Models—minus the Large—on a tiny Jetson Nano."/>
 
@@ -36,17 +36,17 @@
     
 </title>
 
-<link rel="canonical" href="//localhost:1313/posts/jetson/"/>
+<link rel="canonical" href="//localhost:61799/posts/jetson/"/>
 
-<meta property="og:url" content="//localhost:1313/posts/jetson/">
+<meta property="og:url" content="//localhost:61799/posts/jetson/">
   <meta property="og:site_name" content="Distributed Hate Machine">
   <meta property="og:title" content="Reviving Jetson Nano to run some LLMs">
   <meta property="og:description" content="Large Language Models—minus the Large—on a tiny Jetson Nano.">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2025-10-19T00:00:00+00:00">
-    <meta property="article:modified_time" content="2025-10-19T00:00:00+00:00">
+    <meta property="article:published_time" content="2025-10-20T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-10-20T00:00:00+00:00">
     <meta property="article:tag" content="Cuda">
     <meta property="article:tag" content="Jetson">
 
@@ -97,7 +97,7 @@
     
 
     <h1 class="header-title">
-        <a href="//localhost:1313/">Distributed Hate Machine</a>
+        <a href="//localhost:61799/">Distributed Hate Machine</a>
     </h1>
 
     <div class="header-menu">
@@ -170,8 +170,8 @@
             <p class="author">Egor </p>
             
             <p class="single-date">
-              <time datetime="2025-10-19T00:00:00&#43;00:00">October 19, 2025</time>
-              &nbsp; · &nbsp;3 min read
+              <time datetime="2025-10-20T00:00:00&#43;00:00">October 20, 2025</time>
+              &nbsp; · &nbsp;4 min read
             </p>
           </div>
         </div>
@@ -183,7 +183,15 @@
   <ul>
     <li><a href="#setup">Setup</a></li>
     <li><a href="#logging-in">Logging in</a></li>
-    <li><a href="#benchmarking">Benchmarking</a></li>
+    <li><a href="#benchmarking">Benchmarking</a>
+      <ul>
+        <li><a href="#cpu">CPU</a></li>
+        <li><a href="#gpu">GPU</a></li>
+        <li><a href="#pondering">Pondering</a></li>
+        <li><a href="#bonus-macbook-air-m3">Bonus: Macbook Air M3</a></li>
+      </ul>
+    </li>
+    <li><a href="#conclusion">Conclusion</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ul>
 </nav>
@@ -213,7 +221,7 @@ multipass shell builder
 echo &#34;deb [arch=all,$(dpkg --print-architecture) signed-by=/usr/share/keyrings/prebuilt-mpr-archive-keyring.gpg] https://proget.makedeb.org prebuilt-mpr $(lsb_release -cs)&#34; | sudo tee /etc/apt/sources.list.d/prebuilt-mpr.list
 sudo apt update
 </code></pre><ul>
-<li>Install the some tools</li>
+<li>Install some tools</li>
 </ul>
 <pre tabindex="0"><code>sudo apt install -y git just jq podman qemu-user-static
 </code></pre>
@@ -255,17 +263,87 @@ Some <a href="https://www.caplaz.com/jetson-nano-running-llama-cpp/">madlad</a> 
   Benchmarking
   <a class="anchor" href="#benchmarking">#</a>
 </h2>
-<p>I thought that just running couple of prompt is too simple, so inspired by <a href="https://modal.com/llm-almanac/how-to-benchmark">LLM&rsquo;s Engineer Almanac by Modal</a> I&rsquo;ve decided to write my own benchmark.</p>
+<p>I thought that just running couple of prompts is too simple, so inspired by <a href="https://modal.com/llm-almanac/how-to-benchmark">LLM&rsquo;s Engineer Almanac by Modal</a> I&rsquo;ve decided to write my own benchmark.</p>
 <p>Original code <a href="https://github.com/modal-labs/stopwatch">modal-labs/stopwatch</a> runs on Modal and tested vLLM, SGLang, and TensorRT-LLM.<br>
 My version <a href="https://github.com/wtfnukee/hourglass">wtfnukee/hourglass</a> is smaller (and probably slower), hence the name. It uses <code>llama-bench</code> suite for now, but I left foundation for handwritten benchmark engine. I&rsquo;ll cover this tool and benchmarking as a topic in separate post.</p>
-<p>TO BE CONTINUED&hellip;</p>
+<p>Our test subject is <a href="https://huggingface.co/Qwen/Qwen1.5-0.5B-Chat-GGUF">Qwen/Qwen1.5-{size}-Chat-GGUF</a>, 8 model sizes (0.5B, 1.8B, 4B dense models, and an MoE model of 14B with 2.7B activated) in 8 quanizations (q2_k, q3_k_m, q4_0, q4_k_m, q5_0, q5_k_m, q6_k and q8_0). Following Almanac we&rsquo;ll measure TTL, ITL, LTL on sequences below:</p>
+<pre tabindex="0"><code>128 tokens in / 1024 tokens out  
+256 tokens in / 2048 tokens out  
+512 tokens in / 512 tokens out  
+512 tokens in / 4096 tokens out  
+1024 tokens in / 128 tokens out  
+1024 tokens in / 1024 tokens out  
+2048 tokens in / 256 tokens out  
+2048 tokens in / 2048 tokens out  
+4096 tokens in / 512 tokens out
+</code></pre><p>Chat version was chosen because it handles instructions better and talks more like a human — which helps when you’re benchmarking alone at 2 a.m. and need emotional support from an AI girlfriend running at 0.3 tokens/s.</p>
+<h3 class="heading" id="cpu">
+  CPU
+  <a class="anchor" href="#cpu">#</a>
+</h3>
+<p>Well, the Nano says hello&hellip; eventually.</p>
+<h3 class="heading" id="gpu">
+  GPU
+  <a class="anchor" href="#gpu">#</a>
+</h3>
+<p>Running on GPU, we get:</p>
+<h3 class="heading" id="pondering">
+  Pondering
+  <a class="anchor" href="#pondering">#</a>
+</h3>
+<p>Joint graph:</p>
+<p>ram only smth mb</p>
+<h3 class="heading" id="bonus-macbook-air-m3">
+  Bonus: Macbook Air M3
+  <a class="anchor" href="#bonus-macbook-air-m3">#</a>
+</h3>
+
+<div class="table-outer">
+    <table>
+        <thead>
+            <tr>
+                <th>model</th>
+                <th style="text-align: center">size</th>
+                <th style="text-align: center">params</th>
+                <th style="text-align: center">backend</th>
+                <th style="text-align: right">threads</th>
+                <th style="text-align: right">test</th>
+                <th style="text-align: right">t/s</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>qwen2 0.5B Q8_0</td>
+                <td style="text-align: center">628.14 MiB</td>
+                <td style="text-align: center">619.57 M</td>
+                <td style="text-align: center">Metal, BLAS</td>
+                <td style="text-align: right">4</td>
+                <td style="text-align: right">pp512</td>
+                <td style="text-align: right">3187.14 ± 21.02</td>
+            </tr>
+            <tr>
+                <td>qwen2 0.5B Q8_0</td>
+                <td style="text-align: center">628.14 MiB</td>
+                <td style="text-align: center">619.57 M</td>
+                <td style="text-align: center">Metal, BLAS</td>
+                <td style="text-align: right">4</td>
+                <td style="text-align: right">tg128</td>
+                <td style="text-align: right">135.11 ± 4.65</td>
+            </tr>
+        </tbody>
+    </table>
+</div><h2 class="heading" id="conclusion">
+  Conclusion
+  <a class="anchor" href="#conclusion">#</a>
+</h2>
+<p>Not bad for a $70 board from 2018. Sure, it&rsquo;s 100x slower than an M3, but it&rsquo;s running actual LLM inference on a device that’s mostly heatsink and hopes.</p>
 <h2 class="heading" id="acknowledgments">
   Acknowledgments
   <a class="anchor" href="#acknowledgments">#</a>
 </h2>
-<p>-<a href="https://blog.steelph0enix.dev/posts/llama-cpp-guide/#llama-bench">llama.cpp guide</a> by steelph0enix</p>
 <ul>
-<li><a href="https://modal.com/llm-almanac/how-to-benchmark">LLM&rsquo;s Engineer Almanac</a> by Modal (pls hire me)</li>
+<li>steelph0enix for <a href="https://blog.steelph0enix.dev/posts/llama-cpp-guide/#llama-bench">llama.cpp guide</a></li>
+<li>Modal (pls hire me) for <a href="https://modal.com/llm-almanac/how-to-benchmark">LLM&rsquo;s Engineer Almanac</a></li>
 <li>pythops for <a href="https://github.com/pythops/jetson-image">jetson-image</a> and <a href="https://github.com/pythops/tegrastats">tegrastats</a></li>
 </ul>
 

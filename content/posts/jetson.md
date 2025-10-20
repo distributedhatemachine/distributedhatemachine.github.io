@@ -1,7 +1,7 @@
 ---
 title: "Reviving Jetson Nano to run some LLMs"
 author: "Egor"
-date: "2025-10-19"
+date: "2025-10-20"
 summary: "Large Language Models—minus the Large—on a tiny Jetson Nano."
 description: "Large Language Models—minus the Large—on a tiny Jetson Nano."
 toc: true
@@ -38,7 +38,7 @@ echo "deb [arch=all,$(dpkg --print-architecture) signed-by=/usr/share/keyrings/p
 sudo apt update
 ```
 
-- Install the some tools
+- Install some tools
 ```
 sudo apt install -y git just jq podman qemu-user-static
 ```
@@ -87,14 +87,49 @@ Here is the first pitfall: `llama.cpp` doesn't provide a `linux-cuda-arm64-smth`
 Some [madlad](https://www.caplaz.com/jetson-nano-running-llama-cpp/) already did this, but they had the 4GB version, it will be interesting to see speed difference.
 
 ## Benchmarking
-I thought that just running couple of prompt is too simple, so inspired by [LLM's Engineer Almanac by Modal](https://modal.com/llm-almanac/how-to-benchmark) I've decided to write my own benchmark.
+I thought that just running couple of prompts is too simple, so inspired by [LLM's Engineer Almanac by Modal](https://modal.com/llm-almanac/how-to-benchmark) I've decided to write my own benchmark.
 
 Original code [modal-labs/stopwatch](https://github.com/modal-labs/stopwatch) runs on Modal and tested vLLM, SGLang, and TensorRT-LLM.  
 My version [wtfnukee/hourglass](https://github.com/wtfnukee/hourglass) is smaller (and probably slower), hence the name. It uses `llama-bench` suite for now, but I left foundation for handwritten benchmark engine. I'll cover this tool and benchmarking as a topic in separate post.
 
-TO BE CONTINUED...
+Our test subject is [Qwen/Qwen1.5-{size}-Chat-GGUF](https://huggingface.co/Qwen/Qwen1.5-0.5B-Chat-GGUF), 8 model sizes (0.5B, 1.8B, 4B dense models, and an MoE model of 14B with 2.7B activated) in 8 quanizations (q2_k, q3_k_m, q4_0, q4_k_m, q5_0, q5_k_m, q6_k and q8_0). Following Almanac we'll measure TTL, ITL, LTL on sequences below:
+```
+128 tokens in / 1024 tokens out  
+256 tokens in / 2048 tokens out  
+512 tokens in / 512 tokens out  
+512 tokens in / 4096 tokens out  
+1024 tokens in / 128 tokens out  
+1024 tokens in / 1024 tokens out  
+2048 tokens in / 256 tokens out  
+2048 tokens in / 2048 tokens out  
+4096 tokens in / 512 tokens out
+```
+Chat version was chosen because it handles instructions better and talks more like a human — which helps when you’re benchmarking alone at 2 a.m. and need emotional support from an AI girlfriend running at 0.3 tokens/s.
+
+### CPU
+Well, the Nano says hello... eventually.
+
+### GPU
+Running on GPU, we get:
+
+### Pondering
+Joint graph:
+
+ram only smth mb
+
+### Bonus: Macbook Air M3
+
+| model            | size       | params      | backend     | threads |   test | t/s                |
+|------------------|:----------:|:-----------:|:-----------:|--------:|-------:|--------------------:|
+| qwen2 0.5B Q8_0  | 628.14 MiB | 619.57 M    | Metal, BLAS |       4 | pp512  | 3187.14 ± 21.02    |
+| qwen2 0.5B Q8_0  | 628.14 MiB | 619.57 M    | Metal, BLAS |       4 | tg128  |  135.11 ± 4.65     |
+
+
+## Conclusion
+Not bad for a $70 board from 2018. Sure, it's 100x slower than an M3, but it's running actual LLM inference on a device that’s mostly heatsink and hopes.
+
 
 ## Acknowledgments
--[llama.cpp guide](https://blog.steelph0enix.dev/posts/llama-cpp-guide/#llama-bench) by steelph0enix
-- [LLM's Engineer Almanac](https://modal.com/llm-almanac/how-to-benchmark) by Modal (pls hire me)
+- steelph0enix for [llama.cpp guide](https://blog.steelph0enix.dev/posts/llama-cpp-guide/#llama-bench)
+- Modal (pls hire me) for [LLM's Engineer Almanac](https://modal.com/llm-almanac/how-to-benchmark)
 - pythops for [jetson-image](https://github.com/pythops/jetson-image) and [tegrastats](https://github.com/pythops/tegrastats)

@@ -6,6 +6,15 @@ toc: true
 hideBackToTop: false
 ---
 
+## 2025-10-20
+- [GuideLLM / Evaluating deployment of LLMs](https://github.com/vllm-project/guidellm)
+- [What Every Programmer Should Know About Memory](https://people.freebsd.org/~lstewart/articles/cpumemory.pdf)
+### Caching
+- [Caching](https://planetscale.com/blog/caching)
+- [Twitter](https://www.usenix.org/system/files/osdi20-yang.pdf)
+- [Uber](https://www.uber.com/en-FI/blog/how-uber-serves-over-40-million-reads-per-second-using-an-integrated-cache/)
+- [TikTok](https://vldb.org/pvldb/vol15/p3306-li.pdf)
+
 ## 2025-10-19
 - [How containers work in Modal](https://www.youtube.com/watch?v=SlkEW4C2kd4)
 - [Benchmarking inference engines](https://modal.com/llm-almanac/how-to-benchmark)
