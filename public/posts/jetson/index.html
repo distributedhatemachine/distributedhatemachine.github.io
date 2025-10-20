@@ -2,7 +2,7 @@
 <html lang="en-us"
   dir="ltr">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=53627&amp;path=livereload" data-no-instant defer></script>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
 
@@ -20,28 +20,28 @@
 
 
 
-<link rel="icon" type="image/ico" href="//localhost:53627/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="//localhost:53627/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="//localhost:53627/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="192x192" href="//localhost:53627/android-chrome-192x192.png">
-<link rel="apple-touch-icon" sizes="180x180" href="//localhost:53627/apple-touch-icon.png">
+<link rel="icon" type="image/ico" href="//localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="//localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="//localhost:1313/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="//localhost:1313/android-chrome-192x192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="//localhost:1313/apple-touch-icon.png">
 
-<meta name="description" content="yay cuda kernels!!"/>
+<meta name="description" content="Large Language Models—minus the Large—on a tiny Jetson Nano."/>
 
 
 
 <title>
     
-    Reviving Jetson Nano to run some LMs and kernels | Distributed Hate Machine
+    Reviving Jetson Nano to run some LLMs | Distributed Hate Machine
     
 </title>
 
-<link rel="canonical" href="//localhost:53627/posts/jetson/"/>
+<link rel="canonical" href="//localhost:1313/posts/jetson/"/>
 
-<meta property="og:url" content="//localhost:53627/posts/jetson/">
+<meta property="og:url" content="//localhost:1313/posts/jetson/">
   <meta property="og:site_name" content="Distributed Hate Machine">
-  <meta property="og:title" content="Reviving Jetson Nano to run some LMs and kernels">
-  <meta property="og:description" content="yay cuda kernels!!">
+  <meta property="og:title" content="Reviving Jetson Nano to run some LLMs">
+  <meta property="og:description" content="Large Language Models—minus the Large—on a tiny Jetson Nano.">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -97,7 +97,7 @@
     
 
     <h1 class="header-title">
-        <a href="//localhost:53627/">Distributed Hate Machine</a>
+        <a href="//localhost:1313/">Distributed Hate Machine</a>
     </h1>
 
     <div class="header-menu">
@@ -153,15 +153,15 @@
 
 
 <div class="breadcrumbs"><a href="/">Home</a><span class="breadcrumbs-separator">/</span><a href="/posts/">Posts</a><span class="breadcrumbs-separator">/</span>
-        <a href="/posts/jetson/">Reviving Jetson Nano to run some LMs and kernels</a></div>
+        <a href="/posts/jetson/">Reviving Jetson Nano to run some LLMs</a></div>
 
 
 <div  class="autonumber" >
   <article>
     <header class="single-intro-container">
         
-        <h1 class="single-title">Reviving Jetson Nano to run some LMs and kernels</h1>
-        <p class="single-summary">yay cuda kernels!!</p>
+        <h1 class="single-title">Reviving Jetson Nano to run some LLMs</h1>
+        <p class="single-summary">Large Language Models—minus the Large—on a tiny Jetson Nano.</p>
         
         <div class="single-subsummary">
           
@@ -171,7 +171,7 @@
             
             <p class="single-date">
               <time datetime="2025-10-19T00:00:00&#43;00:00">October 19, 2025</time>
-              &nbsp; · &nbsp;2 min read
+              &nbsp; · &nbsp;3 min read
             </p>
           </div>
         </div>
@@ -183,64 +183,91 @@
   <ul>
     <li><a href="#setup">Setup</a></li>
     <li><a href="#logging-in">Logging in</a></li>
+    <li><a href="#benchmarking">Benchmarking</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ul>
 </nav>
       </aside>
     
     <div class="single-content">
-      <p>Seven years ago I bought said Jetson Nano 2gb for 70 bucks. I did run some graphics and CV examples, but I mostly used it as multimedia server (I used to watch YouTube and films on XBox 360, so it was less weird alternative).<br>
-Today is someday in october 2025 and I want to bring this beast with whopping 128 CUDA cores and see, can it survive &ldquo;The Trial of the LLMs&rdquo;.</p>
+      <p>Seven years ago I bought a Jetson Nano 2GB for $70. I ran some graphics and computer vision examples, but I mostly used it as a multimedia server (I used to watch YouTube and films on an Xbox 360, so it was a less weird alternative).<br>
+Today is someday in October 2025, and I want to bring this beast, with a whopping 128 CUDA cores, back to life and see whether it can survive &ldquo;The Trial of the LLMs&rdquo;.</p>
 <h2 class="heading" id="setup">
   Setup
   <a class="anchor" href="#setup">#</a>
 </h2>
-<p>First of all we need to get Linux running on machine. MicroSD card I bought with Jetson was used for my DSLR, so let&rsquo;s build image from scratch.<br>
-I still remember that official NVidia images are pain in a ass, fortunately we are blessed with better (and lighter!) alternative <a href="https://github.com/pythops/jetson-image">pythops/jetson-image</a>.</p>
-<p>I&rsquo;ve hid commands so they don&rsquo;t take so much space, but providing them is essential, because some of them are not trivial.</p>
+<p>First of all, we need to get Linux running on the machine. The microSD card I bought with the Jetson was used for my DSLR, so let&rsquo;s build an image from scratch.<br>
+I still remember that the official NVIDIA images are a pain; fortunately, we are blessed with a better (and lighter!) alternative: <a href="https://github.com/pythops/jetson-image">pythops/jetson-image</a>.</p>
 <details>
-    <summary>For some reason I couldn&rsquo;t run it as is and had to use Multipass to create Ubuntu VM</summary>
-    <pre tabindex="0"><code>brew install --cask multipass
+    <summary>I&rsquo;ve hidden the commands so they don&rsquo;t take up so much space, but providing them is essential because some of them are not trivial.</summary>
+    <ul>
+<li>For some reason I couldn&rsquo;t run it as-is and had to use Multipass to create an Ubuntu VM</li>
+</ul>
+<pre tabindex="0"><code>brew install --cask multipass
 multipass launch --name builder --cpus 4 --mem 8G --disk 50G jammy
 multipass shell builder
-</code></pre>
-</details>
-
-
-<details>
-    <summary>Get Prebuilt MPR</summary>
-    <pre tabindex="0"><code>wget -qO - &#39;https://proget.makedeb.org/debian-feeds/prebuilt-mpr.pub&#39; | gpg --dearmor | sudo tee /usr/share/keyrings/prebuilt-mpr-archive-keyring.gpg 1&gt; /dev/null
+</code></pre><ul>
+<li>Get Prebuilt MPR</li>
+</ul>
+<pre tabindex="0"><code>wget -qO - &#39;https://proget.makedeb.org/debian-feeds/prebuilt-mpr.pub&#39; | gpg --dearmor | sudo tee /usr/share/keyrings/prebuilt-mpr-archive-keyring.gpg 1&gt; /dev/null
 echo &#34;deb [arch=all,$(dpkg --print-architecture) signed-by=/usr/share/keyrings/prebuilt-mpr-archive-keyring.gpg] https://proget.makedeb.org prebuilt-mpr $(lsb_release -cs)&#34; | sudo tee /etc/apt/sources.list.d/prebuilt-mpr.list
 sudo apt update
+</code></pre><ul>
+<li>Install the some tools</li>
+</ul>
+<pre tabindex="0"><code>sudo apt install -y git just jq podman qemu-user-static
 </code></pre>
 </details>
 
 
-<details>
-    <summary>Installing said tools</summary>
-    <pre tabindex="0"><code>sudo apt install -y git just jq podman qemu-user-static
-</code></pre>
-</details>
-
-
-<p>After setup we can</p>
+<p>After setup, we can</p>
 <pre tabindex="0"><code>git clone https://github.com/pythops/jetson-image
 cd jetson-image
-</code></pre><p>and make rootfs with 5 major versions old Ubuntu</p>
+</code></pre><p>and make a rootfs with a five-major-versions-old Ubuntu</p>
 <pre tabindex="0"><code>just build-jetson-rootfs 20.04
-</code></pre><p>build image for our board</p>
+</code></pre><p>Build the image for our board</p>
 <pre tabindex="0"><code>just build-jetson-image -b jetson-nano-2gb -l 32
-</code></pre><p>copy image back to host</p>
+</code></pre><p>Copy the image back to the host</p>
 <pre tabindex="0"><code>multipass transfer builder:/home/ubuntu/jetson-image/jetson.img .
-</code></pre><p>and finally flash image into board</p>
+</code></pre><p>and finally flash the image onto the board</p>
 <pre tabindex="0"><code>sudo dd if=jetson.img of=/dev/diskN bs=1m
-</code></pre><h2 class="heading" id="logging-in">
+</code></pre><details>
+    <summary>Setting up WiFi</summary>
+    <p>I thought that this would be as easy as</p>
+<pre tabindex="0"><code>sudo nmcli device wifi list
+sudo nmcli device wifi connect &#34;YourSSID&#34; password &#34;YourPassword&#34;
+</code></pre><p>But <code>pythops/jetson-image</code> is too lightweight — even <code>iwconfig</code> or any networking doesn&rsquo;t work.<br>
+I forked the repo and added some files to support networking out of the box — <a href="https://github.com/wtfnukee/jetson-image.git">wtfnukee/jetson-image</a>. It installs the missing packages so the commands above work.</p>
+
+</details>
+
+
+<h2 class="heading" id="logging-in">
   Logging in
   <a class="anchor" href="#logging-in">#</a>
 </h2>
-<p>After typing login <code>jetson</code> and password <code>jetson</code> we are in!<br>
-Running <code>free -m</code> shows a total of <code>~1700 mb</code> of 64-bit LPDDR4 to spare. That&rsquo;s CPU RAM and GPU VRAM <strong>combined</strong>, so we&rsquo;ll try to use most of it.</p>
-<p>Obviously engines as <code>vLLM</code> or <code>sglang</code> are out of consideration so we have to resort to <a href="https://github.com/ggml-org/llama.cpp">llama.cpp</a>. We could write something from scratch using minimal overhead like <a href="https://github.com/karpathy/llama2.c">llama.c</a>, but I want to run modern LLMs and not debug C/Cpp/Rust code.</p>
-<p>Here is first pitfall. <code>llama.cpp</code> doesn&rsquo;t provide <code>linux-cuda-arm64-smth</code> binary, so building it from sources is only option.</p>
+<p>After typing the login <code>jetson</code> and password <code>jetson</code>, we&rsquo;re in!<br>
+Running <code>free -m</code> shows a total of <code>~1700 MB</code> of 64-bit LPDDR4 to spare. That&rsquo;s CPU RAM and GPU VRAM <strong>combined</strong>, so we&rsquo;ll try to use as much of it as possible.</p>
+<p>Obviously, beefy engines like <code>vLLM</code> or <code>sglang</code> are out of the question, so we have to resort to <a href="https://github.com/ggml-org/llama.cpp">llama.cpp</a>. We could write something from scratch using minimal overhead like <a href="https://github.com/karpathy/llama2.c">llama.c</a>, but I want to run modern LLMs and not debug C/C++/Rust code.</p>
+<p>Here is the first pitfall: <code>llama.cpp</code> doesn&rsquo;t provide a <code>linux-cuda-arm64-smth</code> binary, so building it from source is the only option.<br>
+Some <a href="https://www.caplaz.com/jetson-nano-running-llama-cpp/">madlad</a> already did this, but they had the 4GB version, it will be interesting to see speed difference.</p>
+<h2 class="heading" id="benchmarking">
+  Benchmarking
+  <a class="anchor" href="#benchmarking">#</a>
+</h2>
+<p>I thought that just running couple of prompt is too simple, so inspired by <a href="https://modal.com/llm-almanac/how-to-benchmark">LLM&rsquo;s Engineer Almanac by Modal</a> I&rsquo;ve decided to write my own benchmark.</p>
+<p>Original code <a href="https://github.com/modal-labs/stopwatch">modal-labs/stopwatch</a> runs on Modal and tested vLLM, SGLang, and TensorRT-LLM.<br>
+My version <a href="https://github.com/wtfnukee/hourglass">wtfnukee/hourglass</a> is smaller (and probably slower), hence the name. It uses <code>llama-bench</code> suite for now, but I left foundation for handwritten benchmark engine. I&rsquo;ll cover this tool and benchmarking as a topic in separate post.</p>
+<p>TO BE CONTINUED&hellip;</p>
+<h2 class="heading" id="acknowledgments">
+  Acknowledgments
+  <a class="anchor" href="#acknowledgments">#</a>
+</h2>
+<p>-<a href="https://blog.steelph0enix.dev/posts/llama-cpp-guide/#llama-bench">llama.cpp guide</a> by steelph0enix</p>
+<ul>
+<li><a href="https://modal.com/llm-almanac/how-to-benchmark">LLM&rsquo;s Engineer Almanac</a> by Modal (pls hire me)</li>
+<li>pythops for <a href="https://github.com/pythops/jetson-image">jetson-image</a> and <a href="https://github.com/pythops/tegrastats">tegrastats</a></li>
+</ul>
 
     </div>
   </article>

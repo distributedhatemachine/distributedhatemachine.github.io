@@ -2,7 +2,7 @@
 <html lang="en-us"
   dir="ltr">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=53627&amp;path=livereload" data-no-instant defer></script>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
 
@@ -20,11 +20,11 @@
 
 
 
-<link rel="icon" type="image/ico" href="//localhost:53627/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="//localhost:53627/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="//localhost:53627/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="192x192" href="//localhost:53627/android-chrome-192x192.png">
-<link rel="apple-touch-icon" sizes="180x180" href="//localhost:53627/apple-touch-icon.png">
+<link rel="icon" type="image/ico" href="//localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="//localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="//localhost:1313/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="//localhost:1313/android-chrome-192x192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="//localhost:1313/apple-touch-icon.png">
 
 <meta name="description" content=""/>
 
@@ -36,15 +36,12 @@
     
 </title>
 
-<link rel="canonical" href="//localhost:53627/til/"/>
+<link rel="canonical" href="//localhost:1313/til/"/>
 
-<meta property="og:url" content="//localhost:53627/til/">
+<meta property="og:url" content="//localhost:1313/til/">
   <meta property="og:site_name" content="Distributed Hate Machine">
   <meta property="og:title" content="Today I Learned">
-  <meta property="og:description" content="2025-10-19 # https://www.youtube.com/watch?v=SlkEW4C2kd4 https://modal.com/llm-almanac/how-to-benchmark
-2025-10-15 # https://www.aleksagordic.com/blog/vllm https://www.aleksagordic.com/blog/matmul
-2025-10-13 # https://www.thonking.ai/p/strangely-matrix-multiplications https://modal.com/blog/reverse-engineer-flash-attention-4 https://www.youtube.com/watch?v=uZTtViomW6w https://www.cs.cmu.edu/afs/cs/academic/class/15869-f11/www/readings/lindholm08_tesla.pdf
-2025-10-12 # LLM for kernels KernelBench Accelerating GenAI part 1 / SAM Fast SAM Fast code Accelerating GenAI part 2 / GPT Fast GPT Fast Code Way to faster matmul using sparsification Recomputation using nerdy algos Paper on optimizing data movement in transformers TorchDynamo FlexAttention Supporting Mixtral in GPT Fast What Shapes Do Matrix Multiplications Like? 2025-10-11 # Lora serving # Dynamically swap LoRA adapters in PEFT vLLM LoRA Serving Multi-LoRA Serving from HF TGI Multi-LoRA inference server from Predibase Uncategorized # Great paper on Automatic Differentiation Distributed Training Lexicon All Models Are Wrong: Concepts of Statistical Learning Epic guide on writing CV, statement of purpose, letters of recommendation, specifically for applying to EPFL Domain Specific Architectures">
+  <meta property="og:description" content="2025-10-19 # How containers work in Modal Benchmarking inference engines 2025-10-15 # Digging in vLLM How highperf matmul kernels work 2025-10-13 # Matmuls are weird Flash Attention 4 Great talk on Nvidia Cutile Nvidia Tesla paper 2025-10-12 # LLM for kernels KernelBench Accelerating GenAI part 1 / SAM Fast SAM Fast code Accelerating GenAI part 2 / GPT Fast GPT Fast Code Way to faster matmul using sparsification Recomputation using nerdy algos Paper on optimizing data movement in transformers TorchDynamo FlexAttention Supporting Mixtral in GPT Fast What Shapes Do Matrix Multiplications Like? 2025-10-11 # Lora serving # Dynamically swap LoRA adapters in PEFT vLLM LoRA Serving Multi-LoRA Serving from HF TGI Multi-LoRA inference server from Predibase Uncategorized # Great paper on Automatic Differentiation Distributed Training Lexicon All Models Are Wrong: Concepts of Statistical Learning Epic guide on writing CV, statement of purpose, letters of recommendation, specifically for applying to EPFL Domain Specific Architectures">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
 
@@ -95,7 +92,7 @@
     
 
     <h1 class="header-title">
-        <a href="//localhost:53627/">Distributed Hate Machine</a>
+        <a href="//localhost:1313/">Distributed Hate Machine</a>
     </h1>
 
     <div class="header-menu">
@@ -185,22 +182,28 @@
   2025-10-19
   <a class="anchor" href="#2025-10-19">#</a>
 </h2>
-<p><a href="https://www.youtube.com/watch?v=SlkEW4C2kd4">https://www.youtube.com/watch?v=SlkEW4C2kd4</a>
-<a href="https://modal.com/llm-almanac/how-to-benchmark">https://modal.com/llm-almanac/how-to-benchmark</a></p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=SlkEW4C2kd4">How containers work in Modal</a></li>
+<li><a href="https://modal.com/llm-almanac/how-to-benchmark">Benchmarking inference engines</a></li>
+</ul>
 <h2 class="heading" id="2025-10-15">
   2025-10-15
   <a class="anchor" href="#2025-10-15">#</a>
 </h2>
-<p><a href="https://www.aleksagordic.com/blog/vllm">https://www.aleksagordic.com/blog/vllm</a>
-<a href="https://www.aleksagordic.com/blog/matmul">https://www.aleksagordic.com/blog/matmul</a></p>
+<ul>
+<li><a href="https://www.aleksagordic.com/blog/vllm">Digging in vLLM</a></li>
+<li><a href="https://www.aleksagordic.com/blog/matmul">How highperf matmul kernels work</a></li>
+</ul>
 <h2 class="heading" id="2025-10-13">
   2025-10-13
   <a class="anchor" href="#2025-10-13">#</a>
 </h2>
-<p><a href="https://www.thonking.ai/p/strangely-matrix-multiplications">https://www.thonking.ai/p/strangely-matrix-multiplications</a>
-<a href="https://modal.com/blog/reverse-engineer-flash-attention-4">https://modal.com/blog/reverse-engineer-flash-attention-4</a>
-<a href="https://www.youtube.com/watch?v=uZTtViomW6w">https://www.youtube.com/watch?v=uZTtViomW6w</a>
-<a href="https://www.cs.cmu.edu/afs/cs/academic/class/15869-f11/www/readings/lindholm08_tesla.pdf">https://www.cs.cmu.edu/afs/cs/academic/class/15869-f11/www/readings/lindholm08_tesla.pdf</a></p>
+<ul>
+<li><a href="https://www.thonking.ai/p/strangely-matrix-multiplications">Matmuls are weird</a></li>
+<li><a href="https://modal.com/blog/reverse-engineer-flash-attention-4">Flash Attention 4</a></li>
+<li><a href="https://www.youtube.com/watch?v=uZTtViomW6w">Great talk on Nvidia Cutile</a></li>
+<li><a href="https://www.cs.cmu.edu/afs/cs/academic/class/15869-f11/www/readings/lindholm08_tesla.pdf">Nvidia Tesla paper</a></li>
+</ul>
 <h2 class="heading" id="2025-10-12">
   2025-10-12
   <a class="anchor" href="#2025-10-12">#</a>

@@ -5,4 +5,5 @@ math: true
 hideBackToTop: false
 ---
 
-yay cuda kernels!!
+applied math undergrad  
+pls hire, cv upon request (im bit shy)
