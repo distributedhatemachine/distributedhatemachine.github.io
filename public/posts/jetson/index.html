@@ -2,7 +2,7 @@
 <html lang="en-us"
   dir="ltr">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=61799&amp;path=livereload" data-no-instant defer></script>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=51562&amp;path=livereload" data-no-instant defer></script>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
 
@@ -20,11 +20,11 @@
 
 
 
-<link rel="icon" type="image/ico" href="//localhost:61799/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="//localhost:61799/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="//localhost:61799/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="192x192" href="//localhost:61799/android-chrome-192x192.png">
-<link rel="apple-touch-icon" sizes="180x180" href="//localhost:61799/apple-touch-icon.png">
+<link rel="icon" type="image/ico" href="//localhost:51562/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="//localhost:51562/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="//localhost:51562/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="//localhost:51562/android-chrome-192x192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="//localhost:51562/apple-touch-icon.png">
 
 <meta name="description" content="Large Language Models—minus the Large—on a tiny Jetson Nano."/>
 
@@ -36,9 +36,9 @@
     
 </title>
 
-<link rel="canonical" href="//localhost:61799/posts/jetson/"/>
+<link rel="canonical" href="//localhost:51562/posts/jetson/"/>
 
-<meta property="og:url" content="//localhost:61799/posts/jetson/">
+<meta property="og:url" content="//localhost:51562/posts/jetson/">
   <meta property="og:site_name" content="Distributed Hate Machine">
   <meta property="og:title" content="Reviving Jetson Nano to run some LLMs">
   <meta property="og:description" content="Large Language Models—minus the Large—on a tiny Jetson Nano.">
@@ -97,7 +97,7 @@
     
 
     <h1 class="header-title">
-        <a href="//localhost:61799/">Distributed Hate Machine</a>
+        <a href="//localhost:51562/">Distributed Hate Machine</a>
     </h1>
 
     <div class="header-menu">
@@ -171,7 +171,7 @@
             
             <p class="single-date">
               <time datetime="2025-10-20T00:00:00&#43;00:00">October 20, 2025</time>
-              &nbsp; · &nbsp;4 min read
+              &nbsp; · &nbsp;5 min read
             </p>
           </div>
         </div>
@@ -276,17 +276,26 @@ My version <a href="https://github.com/wtfnukee/hourglass">wtfnukee/hourglass</a
 2048 tokens in / 256 tokens out  
 2048 tokens in / 2048 tokens out  
 4096 tokens in / 512 tokens out
-</code></pre><p>Chat version was chosen because it handles instructions better and talks more like a human — which helps when you’re benchmarking alone at 2 a.m. and need emotional support from an AI girlfriend running at 0.3 tokens/s.</p>
+</code></pre><p>Chat version was chosen because it handles instructions better and talks more like a human &ndash; which helps when you’re benchmarking alone at 2 a.m. and need emotional support from an AI girlfriend running at 0.3 tokens/s.</p>
 <h3 class="heading" id="cpu">
   CPU
   <a class="anchor" href="#cpu">#</a>
 </h3>
 <p>Well, the Nano says hello&hellip; eventually.</p>
+<p>{{&lt; plotly json=&ldquo;assets/jetson/plotly/cpu.json&rdquo; height=&ldquo;400px&rdquo;&gt;}}</p>
 <h3 class="heading" id="gpu">
   GPU
   <a class="anchor" href="#gpu">#</a>
 </h3>
-<p>Running on GPU, we get:</p>
+<details>
+    <summary>Compiling CUDA version</summary>
+    Although I was using <code>gcc-8</code>, compilation failed with &ldquo;unsupported GNU version&rdquo; error. So I just commented check <code>/usr/local/cuda/include/crt/host_config.h</code> (lines 137-141). It compiles and runs smoothly without downgrading <code>gcc</code>.<br>
+And use <code>ccache</code> to speed up compilation.
+</details>
+
+
+<p>Even smallest model in q8_0 doesnt fit entirely in GPU, most I&rsquo;ve got is 24/25 layers, 1 on CPU.</p>
+<p>{{&lt; plotly json=&ldquo;assets/jetson/plotly/gpu.json&rdquo; height=&ldquo;400px&rdquo;&gt;}}</p>
 <h3 class="heading" id="pondering">
   Pondering
   <a class="anchor" href="#pondering">#</a>
@@ -337,6 +346,8 @@ My version <a href="https://github.com/wtfnukee/hourglass">wtfnukee/hourglass</a
   <a class="anchor" href="#conclusion">#</a>
 </h2>
 <p>Not bad for a $70 board from 2018. Sure, it&rsquo;s 100x slower than an M3, but it&rsquo;s running actual LLM inference on a device that’s mostly heatsink and hopes.</p>
+<p>Still, it&rsquo;s only thing with CUDA cores (alas outdated but 5 generations. I mean, Ada Lovelace has <a href="https://arc.net/l/quote/bxycrgmj">128 CUDA cores are included in <strong>each</strong> SM</a>) I own and have direct access.</p>
+<p>I&rsquo;ve just started digging deeper into CUDA, so expect more posts soon.</p>
 <h2 class="heading" id="acknowledgments">
   Acknowledgments
   <a class="anchor" href="#acknowledgments">#</a>
@@ -344,7 +355,7 @@ My version <a href="https://github.com/wtfnukee/hourglass">wtfnukee/hourglass</a
 <ul>
 <li>steelph0enix for <a href="https://blog.steelph0enix.dev/posts/llama-cpp-guide/#llama-bench">llama.cpp guide</a></li>
 <li>Modal (pls hire me) for <a href="https://modal.com/llm-almanac/how-to-benchmark">LLM&rsquo;s Engineer Almanac</a></li>
-<li>pythops for <a href="https://github.com/pythops/jetson-image">jetson-image</a> and <a href="https://github.com/pythops/tegrastats">tegrastats</a></li>
+<li>pythops for <a href="https://github.com/pythops/jetson-image">jetson-image</a> and <a href="https://github.com/pythops/tegratop">tegratop</a></li>
 </ul>
 
     </div>

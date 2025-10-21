@@ -104,13 +104,23 @@ Our test subject is [Qwen/Qwen1.5-{size}-Chat-GGUF](https://huggingface.co/Qwen/
 2048 tokens in / 2048 tokens out  
 4096 tokens in / 512 tokens out
 ```
-Chat version was chosen because it handles instructions better and talks more like a human — which helps when you’re benchmarking alone at 2 a.m. and need emotional support from an AI girlfriend running at 0.3 tokens/s.
+Chat version was chosen because it handles instructions better and talks more like a human -- which helps when you’re benchmarking alone at 2 a.m. and need emotional support from an AI girlfriend running at 0.3 tokens/s.
 
 ### CPU
 Well, the Nano says hello... eventually.
 
+\{\{< plotly json="assets/jetson/plotly/cpu.json" height="400px">\}\}
+
 ### GPU
-Running on GPU, we get:
+{{< details "Compiling CUDA version">}}
+Although I was using `gcc-8`, compilation failed with "unsupported GNU version" error. So I just commented check `/usr/local/cuda/include/crt/host_config.h` (lines 137-141). It compiles and runs smoothly without downgrading `gcc`.  
+And use `ccache` to speed up compilation.
+{{</ details >}}
+
+Even smallest model in q8_0 doesnt fit entirely in GPU, most I've got is 24/25 layers, 1 on CPU.
+
+\{\{< plotly json="assets/jetson/plotly/gpu.json" height="400px">\}\}
+
 
 ### Pondering
 Joint graph:
@@ -128,8 +138,11 @@ ram only smth mb
 ## Conclusion
 Not bad for a $70 board from 2018. Sure, it's 100x slower than an M3, but it's running actual LLM inference on a device that’s mostly heatsink and hopes.
 
+Still, it's only thing with CUDA cores (alas outdated but 5 generations. I mean, Ada Lovelace has [128 CUDA cores are included in **each** SM](https://arc.net/l/quote/bxycrgmj)) I own and have direct access.
+
+I've just started digging deeper into CUDA, so expect more posts soon.
 
 ## Acknowledgments
 - steelph0enix for [llama.cpp guide](https://blog.steelph0enix.dev/posts/llama-cpp-guide/#llama-bench)
 - Modal (pls hire me) for [LLM's Engineer Almanac](https://modal.com/llm-almanac/how-to-benchmark)
-- pythops for [jetson-image](https://github.com/pythops/jetson-image) and [tegrastats](https://github.com/pythops/tegrastats)
+- pythops for [jetson-image](https://github.com/pythops/jetson-image) and [tegratop](https://github.com/pythops/tegratop)
