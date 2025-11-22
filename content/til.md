@@ -1,10 +1,91 @@
 ---
 title: "Today I Learned"
-# autonumber: true
+summary: "Some papers/blogs worth reading"
+description: "Some papers/blogs worth reading"
 math: true
 toc: true
 hideBackToTop: false
 ---
+## 2025-11-21
+https://www.mlsysbook.ai/contents/core/introduction/introduction.html
+https://arxiv.org/pdf/2310.01377
+https://blog.ezyang.com/2019/05/pytorch-internals/
+
+## 2025-11-15
+https://apaz.dev/blog/A_Treatise_On_ML_Data_Infrastructure.html
+https://www.jmeiners.com/think-in-math/
+https://fasterthanli.me/articles/i-want-off-mr-golangs-wild-ride
+
+https://pqnelson.github.io/2020/03/27/automated-theorem-provers.html
+
+## 2025-11-12
+https://arxiv.org/pdf/2001.00888
+http://qwone.com/~jason/python/numeric/numeric-manual.pdf
+https://gonzoml.substack.com/p/jax-things-to-watch-for-in-2025
+https://docs.ragas.io/en/stable
+https://tomasz.janczuk.org/2023/11/letsgo.html
+https://brianmcfee.net/dstbook-site/content/intro.html
+https://obviouslywrong.substack.com/p/the-bitter-lesson-is-misunderstood
+https://gwern.net/scaling-hypothesis
+
+### Rust Shenanigans
+https://fasterthanli.me/articles/pin-and-suffering
+https://fasterthanli.me/articles/engineering-a-rust-optimization-quiz
+https://fasterthanli.me/articles/impromptu-disaster-recovery
+https://fasterthanli.me/articles/aiming-for-correctness-with-types
+
+### Media for Thinking the Unthinkable
+https://michaelnielsen.org/reinventing_explanation/index.html
+https://worrydream.com/
+https://worrydream.com/MediaForThinkingTheUnthinkable/
+https://vimeo.com/906418692
+https://dynamicland.org/2024/The_communal_science_lab.pdf
+https://dynamicland.org/2024/Computational_Public_Space/
+https://habr.com/ru/articles/452520/
+https://www.youtube.com/watch?v=33y9FMIvcWY
+DST Book
+
+### Optimization
+https://arxiv.org/abs/1910.05446
+https://arxiv.org/abs/1811.03600
+https://proceedings.mlr.press/v139/schmidt21a
+https://arxiv.org/abs/2306.07179
+https://arxiv.org/abs/2206.13424
+
+
+### Serverless
+https://docs.aws.amazon.com/wellarchitected/latest/serverless-applications-lens/general-design-principles.html
+https://docs.aws.amazon.com/wellarchitected/latest/serverless-applications-lens/general-design-principles.html
+https://tomasz.janczuk.org/2018/03/how-to-build-your-own-serverless-platform.html
+
+## 2025-11-7
+### Optimization
+https://github.com/google-research/tuning_playbook
+
+### Numpy/Pandas/Python internals
+https://wesmckinney.com/blog/apache-arrow-pandas-internals/
+https://jakevdp.github.io/blog/2014/05/09/why-python-is-slow/
+https://jakevdp.github.io/blog/2017/03/22/group-by-from-scratch/
+https://jakevdp.github.io/blog/2013/06/15/numba-vs-cython-take-2/
+https://wesmckinney.com/blog/arrow-streaming-columnar/
+https://medium.com/data-science/preventing-the-death-of-the-dataframe-8bca1c0f83c8
+https://arxiv.org/pdf/2001.00888
+https://web.mit.edu/dvp/Public/numpybook.pdf
+
+https://github.com/mathisonian/awesome-visualization-research
+https://github.com/srush/Tensor-Puzzles-Penzai/tree/main
+https://medium.com/riselab/so-you-want-to-build-an-open-source-tool-library-as-a-grad-student-94596efc31d1
+https://www.slideshare.net/slideshow/fear-and-loathing-with-apl-oredev/68698829
+https://semiengineering.com/knowledge_centers/low-power/low-power-design/power-consumption/
+
+## 2025-10-27
+- https://yingru.notion.site/When-Speed-Kills-Stability-Demystifying-RL-Collapse-from-the-Training-Inference-Mismatch-271211a558b7808d8b12d403fd15edda
+https://pytorch.org/blog/introducing-pytorch-monarch/
+https://pytorch.org/blog/introducing-torchforge/
+http://joschu.net/blog/kl-approx.html
+http://joschu.net/blog/sending-samples.html
+http://joschu.net/blog/opinionated-guide-ml-research.html
+
 
 ## 2025-10-20
 - [GuideLLM / Evaluating deployment of LLMs](https://github.com/vllm-project/guidellm)

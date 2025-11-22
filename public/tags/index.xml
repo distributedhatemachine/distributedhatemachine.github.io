@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Distributed Hate Machine</title>
-    <link>//localhost:51562/tags/</link>
+    <link>//localhost:51826/tags/</link>
     <description>Recent content in Tags on Distributed Hate Machine</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 20 Oct 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="//localhost:51562/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//localhost:51826/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Cuda</title>
-      <link>//localhost:51562/tags/cuda/</link>
+      <link>//localhost:51826/tags/cuda/</link>
       <pubDate>Mon, 20 Oct 2025 00:00:00 +0000</pubDate>
-      <guid>//localhost:51562/tags/cuda/</guid>
+      <guid>//localhost:51826/tags/cuda/</guid>
       <description></description>
     </item>
     <item>
       <title>Jetson</title>
-      <link>//localhost:51562/tags/jetson/</link>
+      <link>//localhost:51826/tags/jetson/</link>
       <pubDate>Mon, 20 Oct 2025 00:00:00 +0000</pubDate>
-      <guid>//localhost:51562/tags/jetson/</guid>
+      <guid>//localhost:51826/tags/jetson/</guid>
       <description></description>
     </item>
   </channel>

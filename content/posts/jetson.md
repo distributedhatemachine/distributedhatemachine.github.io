@@ -2,8 +2,8 @@
 title: "Reviving Jetson Nano to run some LLMs"
 author: "Egor"
 date: "2025-10-20"
-summary: "Large Language Models—minus the Large—on a tiny Jetson Nano."
-description: "Large Language Models—minus the Large—on a tiny Jetson Nano."
+summary: "Large Language Models -- minus the Large -- on a tiny Jetson Nano."
+description: "Large Language Models -- minus the Large -- on a tiny Jetson Nano."
 toc: true
 readTime: true
 autonumber: true
@@ -92,7 +92,7 @@ I thought that just running couple of prompts is too simple, so inspired by [LLM
 Original code [modal-labs/stopwatch](https://github.com/modal-labs/stopwatch) runs on Modal and tested vLLM, SGLang, and TensorRT-LLM.  
 My version [wtfnukee/hourglass](https://github.com/wtfnukee/hourglass) is smaller (and probably slower), hence the name. It uses `llama-bench` suite for now, but I left foundation for handwritten benchmark engine. I'll cover this tool and benchmarking as a topic in separate post.
 
-Our test subject is [Qwen/Qwen1.5-{size}-Chat-GGUF](https://huggingface.co/Qwen/Qwen1.5-0.5B-Chat-GGUF), 8 model sizes (0.5B, 1.8B, 4B dense models, and an MoE model of 14B with 2.7B activated) in 8 quanizations (q2_k, q3_k_m, q4_0, q4_k_m, q5_0, q5_k_m, q6_k and q8_0). Following Almanac we'll measure TTL, ITL, LTL on sequences below:
+Our test subject is [Qwen/Qwen1.5-{size}-Chat-GGUF](https://huggingface.co/Qwen/Qwen1.5-0.5B-Chat-GGUF), 8 model sizes (only 0.5B, 1.8B, 4B dense models, and an MoE model of 14B with 2.7B activated fit) in 8 quanizations (q2_k, q3_k_m, q4_0, q4_k_m, q5_0, q5_k_m, q6_k and q8_0). Following Almanac we'll measure TTFT, ITL, TTLT and throughput on sequences below:
 ```
 128 tokens in / 1024 tokens out  
 256 tokens in / 2048 tokens out  
@@ -146,3 +146,4 @@ I've just started digging deeper into CUDA, so expect more posts soon.
 - steelph0enix for [llama.cpp guide](https://blog.steelph0enix.dev/posts/llama-cpp-guide/#llama-bench)
 - Modal (pls hire me) for [LLM's Engineer Almanac](https://modal.com/llm-almanac/how-to-benchmark)
 - pythops for [jetson-image](https://github.com/pythops/jetson-image) and [tegratop](https://github.com/pythops/tegratop)
+- Waiting for [benchmarking.science workshop](https://benchmarking.science/)!
