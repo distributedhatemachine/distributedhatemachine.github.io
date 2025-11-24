@@ -2,35 +2,35 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>//localhost:62583/posts/triton-anatomy/</loc>
+    <loc>//localhost:54894/posts/triton-anatomy/</loc>
     <lastmod>2025-11-24T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:62583/tags/cuda/</loc>
+    <loc>//localhost:54894/tags/cuda/</loc>
     <lastmod>2025-11-24T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:62583/</loc>
+    <loc>//localhost:54894/</loc>
     <lastmod>2025-11-24T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:62583/posts/</loc>
+    <loc>//localhost:54894/posts/</loc>
     <lastmod>2025-11-24T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:62583/tags/</loc>
+    <loc>//localhost:54894/tags/</loc>
     <lastmod>2025-11-24T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:62583/tags/triton/</loc>
+    <loc>//localhost:54894/tags/triton/</loc>
     <lastmod>2025-11-24T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:62583/tags/jetson/</loc>
+    <loc>//localhost:54894/tags/jetson/</loc>
     <lastmod>2025-11-19T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:62583/posts/kernels/</loc>
+    <loc>//localhost:54894/posts/kernels/</loc>
     <lastmod>2025-11-19T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:62583/posts/jetson/</loc>
+    <loc>//localhost:54894/posts/jetson/</loc>
     <lastmod>2025-10-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>//localhost:62583/about/</loc>
+    <loc>//localhost:54894/about/</loc>
   </url><url>
-    <loc>//localhost:62583/til/</loc>
+    <loc>//localhost:54894/til/</loc>
   </url>
 </urlset>

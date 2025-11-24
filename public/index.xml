@@ -2,45 +2,45 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Home on Distributed Hate Machine</title>
-    <link>//localhost:62583/</link>
+    <link>//localhost:54894/</link>
     <description>Recent content in Home on Distributed Hate Machine</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 24 Nov 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="//localhost:62583/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="//localhost:54894/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Anatomy of Triton</title>
-      <link>//localhost:62583/posts/triton-anatomy/</link>
+      <link>//localhost:54894/posts/triton-anatomy/</link>
       <pubDate>Mon, 24 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>//localhost:62583/posts/triton-anatomy/</guid>
-      <description>Dissecting Triton and writing small LLM purely in Triton</description>
+      <guid>//localhost:54894/posts/triton-anatomy/</guid>
+      <description>Dissecting Triton and writing small LLM purely in it</description>
     </item>
     <item>
       <title>Running kernels modal style</title>
-      <link>//localhost:62583/posts/kernels/</link>
+      <link>//localhost:54894/posts/kernels/</link>
       <pubDate>Wed, 19 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>//localhost:62583/posts/kernels/</guid>
+      <guid>//localhost:54894/posts/kernels/</guid>
       <description>Large Language Models—minus the Large—on a tiny Jetson Nano.</description>
     </item>
     <item>
       <title>Reviving Jetson Nano to run some LLMs</title>
-      <link>//localhost:62583/posts/jetson/</link>
+      <link>//localhost:54894/posts/jetson/</link>
       <pubDate>Mon, 20 Oct 2025 00:00:00 +0000</pubDate>
-      <guid>//localhost:62583/posts/jetson/</guid>
+      <guid>//localhost:54894/posts/jetson/</guid>
       <description>Large Language Models &amp;ndash; minus the Large &amp;ndash; on a tiny Jetson Nano.</description>
     </item>
     <item>
       <title>About me</title>
-      <link>//localhost:62583/about/</link>
+      <link>//localhost:54894/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:62583/about/</guid>
+      <guid>//localhost:54894/about/</guid>
       <description>&lt;p&gt;applied math undergrad&lt;br&gt;&#xA;pls hire, cv upon request (im bit shy)&lt;/p&gt;</description>
     </item>
     <item>
       <title>Today I Learned</title>
-      <link>//localhost:62583/til/</link>
+      <link>//localhost:54894/til/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>//localhost:62583/til/</guid>
+      <guid>//localhost:54894/til/</guid>
       <description>Some papers/blogs worth reading</description>
     </item>
   </channel>

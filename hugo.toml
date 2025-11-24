@@ -74,6 +74,10 @@ url = "/til"
 [markup.highlight]
 style = 'python'
 
+[markup.tableOfContents]
+startLevel = 1
+endLevel = 3
+
 [caches]
   [caches.images]
     dir = ':cacheDir/images'
