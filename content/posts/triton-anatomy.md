@@ -475,7 +475,7 @@ class TritonLLM:
 
 # Hard part
 
-I hope you've read through this and want to understand Triton deeper than just writing kernels (especially because you can just find [already written highperf kernels](https://github.com/zinccat/Awesome-Triton-Kernels))
+I hope you've enjoyed this and are curious to dive deeper into Triton - not just to write kernels, but to understand how it really works under the hood (especially since you could always just use [pre-written high-performance kernels]((https://github.com/zinccat/Awesome-Triton-Kernels))).
 
 ## Compilation pipeline (what happens when you @triton.jit a function)
 - Triton parses the decorated Python function into a frontend AST and builds Triton-IR (a machine-independent IR tailored to Triton’s block-level model).
@@ -487,7 +487,7 @@ I hope you've read through this and want to understand Triton deeper than just w
 - PTX (or the device binary) is JIT/linked into a device binary (CUBIN) that the runtime can launch. Triton caches compiled variants (specialization).  
 *Because of constexprs and meta parameters, one Python kernel can produce many specialized binaries.*
 
-More [here](https://pytorch.org/blog/triton-kernel-compilation-stages/) and [there](https://www.kapilsharma.dev/posts/deep-dive-into-triton-internals/)
+More [here](https://pytorch.org/blog/triton-kernel-compilation-stages/) and [there](https://www.kapilsharma.dev/posts/deep-dive-into-triton-internals/).
 
 ## Execution model - kernels, grids, and how they map to GPU hardware
 
