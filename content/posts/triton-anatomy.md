@@ -2,8 +2,8 @@
 title: "Anatomy of Triton"
 author: "Egor"
 date: "2025-11-24"
-summary: "Dissecting Triton and writing small LLM purely in Triton"
-description: "Dissecting Triton and writing small LLM purely in Triton"
+summary: "Dissecting Triton and writing small LLM purely in it"
+description: "Dissecting Triton and writing small LLM purely in it"
 toc: true
 readTime: true
 autonumber: true
@@ -15,7 +15,7 @@ draft: false
 ---
 
 # Disclaimer
-In this post I want to talk about Triton only and not explain threads/blocks/grid/warps/etc. If you are not familiar with these concepts, I recommend you to read [this post](https://modal.com/gpu-glossary/device-software/thread-block-grid) first. And maybe look at [this visualisation](https://gemini.google.com/share/c1fc651fa288) too.
+In this post, I want to focus on Triton itself and won't go into the details of threads, blocks, grids, or warps. If you're not familiar with these concepts, I recommend reading [this post](https://modal.com/gpu-glossary/device-software/thread-block-grid)  first - and maybe checking out [this visualisation](https://gemini.google.com/share/c1fc651fa288) too.
 
 # Fun part
 
