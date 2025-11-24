@@ -2,17 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Cuda on Distributed Hate Machine</title>
-    <link>//localhost:51826/tags/cuda/</link>
+    <link>//localhost:62583/tags/cuda/</link>
     <description>Recent content in Cuda on Distributed Hate Machine</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 20 Oct 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="//localhost:51826/tags/cuda/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 24 Nov 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="//localhost:62583/tags/cuda/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Anatomy of Triton</title>
+      <link>//localhost:62583/posts/triton-anatomy/</link>
+      <pubDate>Mon, 24 Nov 2025 00:00:00 +0000</pubDate>
+      <guid>//localhost:62583/posts/triton-anatomy/</guid>
+      <description>Dissecting Triton and writing small LLM purely in Triton</description>
+    </item>
+    <item>
+      <title>Running kernels modal style</title>
+      <link>//localhost:62583/posts/kernels/</link>
+      <pubDate>Wed, 19 Nov 2025 00:00:00 +0000</pubDate>
+      <guid>//localhost:62583/posts/kernels/</guid>
+      <description>Large Language Models—minus the Large—on a tiny Jetson Nano.</description>
+    </item>
     <item>
       <title>Reviving Jetson Nano to run some LLMs</title>
-      <link>//localhost:51826/posts/jetson/</link>
+      <link>//localhost:62583/posts/jetson/</link>
       <pubDate>Mon, 20 Oct 2025 00:00:00 +0000</pubDate>
-      <guid>//localhost:51826/posts/jetson/</guid>
+      <guid>//localhost:62583/posts/jetson/</guid>
       <description>Large Language Models &amp;ndash; minus the Large &amp;ndash; on a tiny Jetson Nano.</description>
     </item>
   </channel>

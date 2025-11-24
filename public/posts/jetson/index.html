@@ -2,7 +2,7 @@
 <html lang="en-us"
   dir="ltr">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=51826&amp;path=livereload" data-no-instant defer></script>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=62583&amp;path=livereload" data-no-instant defer></script>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
 
@@ -20,11 +20,11 @@
 
 
 
-<link rel="icon" type="image/ico" href="//localhost:51826/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="//localhost:51826/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="//localhost:51826/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="192x192" href="//localhost:51826/android-chrome-192x192.png">
-<link rel="apple-touch-icon" sizes="180x180" href="//localhost:51826/apple-touch-icon.png">
+<link rel="icon" type="image/ico" href="//localhost:62583/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="//localhost:62583/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="//localhost:62583/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="//localhost:62583/android-chrome-192x192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="//localhost:62583/apple-touch-icon.png">
 
 <meta name="description" content="Large Language Models -- minus the Large -- on a tiny Jetson Nano."/>
 
@@ -36,9 +36,9 @@
     
 </title>
 
-<link rel="canonical" href="//localhost:51826/posts/jetson/"/>
+<link rel="canonical" href="//localhost:62583/posts/jetson/"/>
 
-<meta property="og:url" content="//localhost:51826/posts/jetson/">
+<meta property="og:url" content="//localhost:62583/posts/jetson/">
   <meta property="og:site_name" content="Distributed Hate Machine">
   <meta property="og:title" content="Reviving Jetson Nano to run some LLMs">
   <meta property="og:description" content="Large Language Models -- minus the Large -- on a tiny Jetson Nano.">
@@ -61,7 +61,7 @@
 
 
 
-<link rel="stylesheet" href="/assets/combined.min.56b1873d8852f8a5a109abda36c1bfcde55cb48e5bcbe0d8c934a196a7dc374a.css" media="all">
+<link rel="stylesheet" href="/assets/combined.min.c84ef7d767cb9811a35d21d1f0bcb15f49465c1e026bee0cce5f22e22a0d327c.css" media="all">
 
 
 
@@ -97,7 +97,7 @@
     
 
     <h1 class="header-title">
-        <a href="//localhost:51826/">Distributed Hate Machine</a>
+        <a href="//localhost:62583/">Distributed Hate Machine</a>
     </h1>
 
     <div class="header-menu">
@@ -266,7 +266,7 @@ Some <a href="https://www.caplaz.com/jetson-nano-running-llama-cpp/">madlad</a> 
 <p>I thought that just running couple of prompts is too simple, so inspired by <a href="https://modal.com/llm-almanac/how-to-benchmark">LLM&rsquo;s Engineer Almanac by Modal</a> I&rsquo;ve decided to write my own benchmark.</p>
 <p>Original code <a href="https://github.com/modal-labs/stopwatch">modal-labs/stopwatch</a> runs on Modal and tested vLLM, SGLang, and TensorRT-LLM.<br>
 My version <a href="https://github.com/wtfnukee/hourglass">wtfnukee/hourglass</a> is smaller (and probably slower), hence the name. It uses <code>llama-bench</code> suite for now, but I left foundation for handwritten benchmark engine. I&rsquo;ll cover this tool and benchmarking as a topic in separate post.</p>
-<p>Our test subject is <a href="https://huggingface.co/Qwen/Qwen1.5-0.5B-Chat-GGUF">Qwen/Qwen1.5-{size}-Chat-GGUF</a>, 8 model sizes (0.5B, 1.8B, 4B dense models, and an MoE model of 14B with 2.7B activated) in 8 quanizations (q2_k, q3_k_m, q4_0, q4_k_m, q5_0, q5_k_m, q6_k and q8_0). Following Almanac we&rsquo;ll measure TTFT, ITL, TTLT on sequences below:</p>
+<p>Our test subject is <a href="https://huggingface.co/Qwen/Qwen1.5-0.5B-Chat-GGUF">Qwen/Qwen1.5-{size}-Chat-GGUF</a>, 8 model sizes (only 0.5B, 1.8B, 4B dense models, and an MoE model of 14B with 2.7B activated fit) in 8 quanizations (q2_k, q3_k_m, q4_0, q4_k_m, q5_0, q5_k_m, q6_k and q8_0). Following Almanac we&rsquo;ll measure TTFT, ITL, TTLT and throughput on sequences below:</p>
 <pre tabindex="0"><code>128 tokens in / 1024 tokens out  
 256 tokens in / 2048 tokens out  
 512 tokens in / 512 tokens out  
@@ -356,6 +356,7 @@ And use <code>ccache</code> to speed up compilation.
 <li>steelph0enix for <a href="https://blog.steelph0enix.dev/posts/llama-cpp-guide/#llama-bench">llama.cpp guide</a></li>
 <li>Modal (pls hire me) for <a href="https://modal.com/llm-almanac/how-to-benchmark">LLM&rsquo;s Engineer Almanac</a></li>
 <li>pythops for <a href="https://github.com/pythops/jetson-image">jetson-image</a> and <a href="https://github.com/pythops/tegratop">tegratop</a></li>
+<li>Waiting for <a href="https://benchmarking.science/">benchmarking.science workshop</a>!</li>
 </ul>
 
     </div>
@@ -367,6 +368,35 @@ And use <code>ccache</code> to speed up compilation.
 
   
   
+
+<div class="single-pagination">
+    <hr />
+
+    <div class="flexnowrap">
+
+        <div class="single-pagination-prev">
+            
+        </div>
+
+        <div class="single-pagination-next">
+            
+            <div class="single-pagination-container-next">
+                <div class="single-pagination-text">
+                    <a href="/posts/kernels/">
+                        Running kernels modal style
+                    </a>
+                </div>
+                <div class="single-pagination-text">→</div>
+            </div>
+            
+        </div>
+
+    </div>
+
+    <hr />
+</div>
+
+
 
   
 
