@@ -20,8 +20,11 @@ hideHeader = false
 # Intro on main page, content is markdown
 homeIntroTitle = 'Hi!'
 homeIntroContent = """
-applied math undergrad\n
-pls hire, cv upon request (im bit shy)
+i'm egor, ml engineer who applies math
+
+into distributed optimization, cuda, type theory, and llm infrastructure
+
+[about me](/about) • [github](https://github.com/wtfnukee)
 """
 
 # Collection to display on home

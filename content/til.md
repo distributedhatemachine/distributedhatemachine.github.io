@@ -6,6 +6,10 @@ math: true
 toc: true
 hideBackToTop: false
 ---
+
+## 2025-11-25
+https://joomy.korkutblech.com/posts/2025-11-23-why-i-refuse.html
+
 ## 2025-11-21
 https://www.mlsysbook.ai/contents/core/introduction/introduction.html
 https://arxiv.org/pdf/2310.01377
