@@ -478,7 +478,7 @@ class TritonLLM:
 I hope you've enjoyed this and are curious to dive deeper into Triton - not just to write kernels, but to understand how it really works under the hood (especially since you could always just use [pre-written high-performance kernels]((https://github.com/zinccat/Awesome-Triton-Kernels))).
 
 ## Compilation pipeline (what happens when you @triton.jit a function)
-- Triton parses the decorated Python function into a frontend AST and builds Triton-IR (a machine-independent IR tailored to Triton’s block-level model).
+- Triton parses the decorated Python function into a frontend AST and builds Triton-IR (a machine-independent IR tailored to Triton's block-level model).
 
 - Triton lowers Triton-IR into GPU-specific IR (Triton-GPU / MLIR dialects). Optimizations and hardware-aware transforms happen here (tiling, shared-memory buffering, software pipelining, etc.).
 
@@ -491,14 +491,14 @@ More [here](https://pytorch.org/blog/triton-kernel-compilation-stages/) and [the
 
 ## Execution model - kernels, grids, and how they map to GPU hardware
 
-- Triton exposes the kernel at the block/program level: every program instance (the work unit you index with tl.program_id) is analogous to a CUDA thread block / CTA but with Triton’s own abstraction. Internally a program instance is executed cooperatively by a configurable number of threads (warps).
+- Triton exposes the kernel at the block/program level: every program instance (the work unit you index with tl.program_id) is analogous to a CUDA thread block / CTA but with Triton's own abstraction. Internally a program instance is executed cooperatively by a configurable number of threads (warps).
 
 - `num_warps` controls how many warps (32-thread groups) are assigned per program instance. e.g. `num_warps`=8 => each program runs on 8 * 32 = 256 threads. `num_stages` tells the compiler how many pipeline stages to insert for software-pipelining (helpful for tiled GEMMs). 
 
 
 - The grid you pass to kernel[grid] determines how many program instances to launch along each program axis; tl.program_id / tl.num_programs give the per-instance index/number.
 
-Why **this** is magic I've talked before: Triton’s block-level model frees you from thinking about individual threads - you reason in blocks/tiles and let the compiler parallelize across threads/warps inside each block. This is what makes Triton kernels compact to write while still being efficient.
+Why **this** is magic I've talked before: Triton's block-level model frees you from thinking about individual threads - you reason in blocks/tiles and let the compiler parallelize across threads/warps inside each block. This is what makes Triton kernels compact to write while still being efficient.
 
 ## Memory model & synchronization
 
@@ -521,4 +521,4 @@ Why **this** is magic I've talked before: Triton’s block-level model frees you
 - Software pipelining / multi-buffering: the compiler can overlap loads/stores with compute across stages; `num_stages` selects the pipeline depth. Useful in matmul/attention kernels.
 
 # tl.debug_barrier
-Let's stop here and synchronize. There's plenty more to explore in Triton’s optimization toolbox (just tell me if you want Part 2). I'm also cooking up a matching breakdown for Cute/TileLang, so keep an eye out!
+Let's stop here and synchronize. There's plenty more to explore in Triton's optimization toolbox (just tell me if you want Part 2). I'm also cooking up a matching breakdown for Cute/TileLang, so keep an eye out!

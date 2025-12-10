@@ -92,7 +92,17 @@ Some [madlad](https://www.caplaz.com/jetson-nano-running-llama-cpp/) already did
 I thought that just running couple of prompts is too simple, so inspired by [LLM's Engineer Almanac by Modal](https://modal.com/llm-almanac/how-to-benchmark) I've decided to write my own benchmarking tool.
 
 Original code [modal-labs/stopwatch](https://github.com/modal-labs/stopwatch) runs on Modal and tested vLLM, SGLang, and TensorRT-LLM.  
-My version [wtfnukee/hourglass](https://github.com/wtfnukee/hourglass) is smaller (and focused on edge devices), hence the name. It uses `llama-bench` suite for now, but I left foundation for handwritten benchmark engine. You can check project's `README.md` for more info.
+My version [wtfnukee/hourglass](https://github.com/wtfnukee/hourglass) is smaller (and focused on edge devices), hence the name.
+
+### Hourglass
+Hourglass is a Rust-based CLI tool specifically designed for benchmarking LLMs on edge devices. Unlike cloud-focused benchmarks, it's optimized for resource-constrained devices with thermal throttling, limited memory, and shared CPU/GPU memory architectures.
+
+Key Features:
+- Multi-Backend Support: CPU, CUDA (Jetson/x86), Metal (Apple Silicon), and Vulkan
+- Comprehensive Metrics: TTFT, ITL, TTLT, throughput, system resource usage
+- Edge Device Focus: Optimized for devices like Jetson Nano, Raspberry Pi
+- System Monitoring: Tracks CPU/GPU usage, memory, temperature, and power consumption
+- Structured Output: JSON output for easy analysis and visualization
 
 Our test subject is [Qwen/Qwen2.5-{size}-Instruct](https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF), 3 model sizes (only 0.5B, 1.5B, 3B dense models) in 8 quantizations (q2_k, q3_k_m, q4_0, q4_k_m, q5_0, q5_k_m, q6_k and q8_0). Following Almanac we'll measure TTFT, ITL, TTLT and throughput on sequences below:
 
@@ -215,6 +225,46 @@ eval_tps:          524.94
 ```
 
 The M3 absolutely obliterates both CPU and GPU results on the Nano, especially in the prompt_eval phase. Even the 3B model runs with surprisingly high throughput for a fanless ultraportable. Apple’s unified memory + optimized Metal kernels continue to make small and mid-sized models feel effortless.
+
+### Performance Visualizations
+![Performance Scaling](plots/performance_scaling.png)
+
+*Left: TTFT vs Model Size | Right: Eval TPS vs Model Size*
+
+This chart shows how performance degrades as model size increases across Jetson CPU (purple) and GPU (blue) backends. The GPU shows significant advantages for larger quantizations (Q4_0+), while smaller quantizations (Q2_K) show minimal GPU benefit.
+
+#### Platform Comparison
+![Platform Comparison](plots/platform_comparison.png)
+
+This bar chart compares Jetson CPU vs GPU performance across key metrics:
+- **TTFT (Time to First Token)**: GPU is ~5-6× faster than CPU for optimal quantizations (Q4_0/Q5_0)
+- **Eval TPS (Sustained Generation)**: GPU shows modest improvements in sustained token generation
+- **Prompt Eval TPS**: GPU demonstrates ~80× improvement over CPU in prompt processing due to memory bandwidth advantages
+
+#### Quantization Efficiency
+
+![Memory Performance Tradeoff](plots/memory_performance_tradeoff.png)
+This scatter plot reveals the efficiency of different quantization levels on Jetson:
+- Q2_K provides the best performance per GB for CPU
+- Q4_0/Q5_0 show better GPU utilization despite larger size
+- Color intensity represents absolute Eval TPS performance
+
+#### Inter-Token Latency Distribution
+
+![ITL Distribution](plots/itl_distribution.png)
+The ITL distribution shows:
+- Jetson CPU and GPU have similar latency profiles for token generation
+- Most tokens are generated in 100-150ms range
+- Some outliers show occasional performance hiccups
+
+#### Performance Heatmap
+
+![Performance Heatmap](plots/performance_heatmap.png)
+This heatmap shows Eval TPS across different scenarios for Jetson CPU vs GPU:
+- GPU shows consistent advantages across most scenarios
+- Performance varies based on input/output token ratios
+- Chat scenarios (128_in_1024_out) show best relative GPU improvements
+
 
 ### Thermal Management
 ![Thermal solution](thermal_management.jpg)
