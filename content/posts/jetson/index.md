@@ -287,3 +287,4 @@ Because of that, producing good plots was harder than producing the data itself.
 - steelph0enix for [llama.cpp guide](https://blog.steelph0enix.dev/posts/llama-cpp-guide/#llama-bench)
 - Modal (pls hire me) for [LLM's Engineer Almanac](https://modal.com/llm-almanac/how-to-benchmark)
 - pythops for [jetson-image](https://github.com/pythops/jetson-image) and [tegratop](https://github.com/pythops/tegratop)
+- last moment finding [Nvidia Jetson AI Lab](https://www.jetson-ai-lab.com/index.html)
