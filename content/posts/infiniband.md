@@ -11,7 +11,7 @@ math: true
 tags: []
 showTags: false
 hideBackToTop: false
-draft: true
+draft: false
 ---
 
 So I've been on job market recently and I often see Infiniband experience in "nice-to-have"s. I vaguely know that it is fast interconnect in datacenters and for sure dont know all quirks of it. So lets make our own version to learn. But first of all, what even is Infiniband?
