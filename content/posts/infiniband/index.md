@@ -2,8 +2,8 @@
 title: 'Infiniband'
 author: "Egor"
 date: '2025-12-16T13:58:09+03:00'
-summary: ""
-description: ""
+summary: "Learning Infiniband from first principles - by implementing it in Python"
+description: "Learning Infiniband from first principles - by implementing it in Python"
 toc: true
 readTime: true
 autonumber: true
