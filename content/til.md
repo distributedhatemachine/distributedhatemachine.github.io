@@ -7,6 +7,12 @@ toc: true
 hideBackToTop: false
 ---
 
+## 2025-12-13
+https://ehsanmkermani.com/2023/12/08/modal-labs-deep-dive/
+https://erikbern.com/2022/12/07/what-ive-been-working-on-modal
+https://netflixtechblog.medium.com/mount-mayhem-at-netflix-scaling-containers-on-modern-cpus-f3b09b68beac
+https://arxiv.org/pdf/2507.04786
+
 ## 2025-11-25
 https://joomy.korkutblech.com/posts/2025-11-23-why-i-refuse.html
 
@@ -73,7 +79,7 @@ https://jakevdp.github.io/blog/2017/03/22/group-by-from-scratch/
 https://jakevdp.github.io/blog/2013/06/15/numba-vs-cython-take-2/
 https://wesmckinney.com/blog/arrow-streaming-columnar/
 https://medium.com/data-science/preventing-the-death-of-the-dataframe-8bca1c0f83c8
-https://arxiv.org/pdf/2001.00888
+https://arxiv.org/abs/2001.00888
 https://web.mit.edu/dvp/Public/numpybook.pdf
 
 https://github.com/mathisonian/awesome-visualization-research

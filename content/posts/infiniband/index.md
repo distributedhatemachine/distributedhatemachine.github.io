@@ -29,7 +29,7 @@ InfiniBand was designed to solve this:
 - Cut-Through Switching: Forwarding the packet header before the tail has even arrived.
 
 Let's simulate these components one by one.  
-*I will be skipping some non-essential components like Packet/Link, check [github]() for full code*
+*I will be skipping some non-essential components like Packet/Link, check [github](https://gist.github.com/wtfnukee/3bf9ee736001fe85e6bd4578602f0612) for full code*
 
 ## The Simulation Kernel
 Since network events happen in nanoseconds and asynchronously, a simple while loop won't work. We need a priority queue to manage time. This allows us to simulate the physical delay of a cable (0.1ns) vs. the processing delay of a switch (0.05ns).
@@ -39,7 +39,6 @@ class Simulator:
         self.events = []  # Priority Queue
         self.current_time = 0.0
         self.event_id_gen = itertools.count()  # <--- Unique ID Generator
-        self.vis = MermaidVisualizer()
 
     def schedule(self, delay, callback, *args):
         execution_time = self.current_time + delay
@@ -178,7 +177,7 @@ class IBSwitch(IBNode):
         pass
 ```
 
-## The Subnet Manager
+## Subnet Manager
 Unlike Ethernet which "learns" mac addresses via flooding (ARP/Broadcasting), InfiniBand is centrally managed. The Subnet Manager (SM) is a piece of software that discovers the topology, assigns addresses (LIDs), and programs the forwarding tables (LFTs) on all switches.
 ```python
 class SubnetManager:
@@ -194,12 +193,14 @@ class SubnetManager:
         # (Simplified routing logic omitted for brevity - full code on github)
 ```
 
-## The Experiment: Forcing a Traffic Jam
+## Experiment: Forcing a Traffic Jam
 To prove the simulation works, we set up a scenario designed to fail on standard Ethernet but just "pause" on InfiniBand.  
 >Topology: Host A -> Switch -> Host B.  
 >Constraint: We set the Buffer Size to 3.  
 >Traffic: We send a burst of 5 packets.  
 Since 5 > 3, Host A should run out of credits after the 3rd packet and stall until the Switch moves packets forward.
+
+![Credits are per-link and shown here independently.](mermaid.png)
 
 **Results**  
 Here is the actual output from our Python simulator:
