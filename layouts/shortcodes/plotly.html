@@ -1,0 +1,22 @@
+{{ $json := .Get "json" }} {{ $height := .Get "height" | default "400px" }}
+<div id="{{$json}}" class="plotly" style="height:{{$height}}"></div>
+<script>
+    async function loadPlotly() {
+        try {
+            const response = await fetch("{{$json}}");
+            const fig = await response.json();
+            var layout = fig.layout || {};
+            layout["modebar"] = {
+                orientation: "h",
+            };
+            layout["margin"] = { l: 0, r: 0, t: 40, b: 40 };
+            Plotly.newPlot("{{$json}}", fig.data, layout, {
+                displaylogo: false,
+                responsive: true,
+            });
+        } catch (error) {
+            console.error("Error loading plotly json:", error);
+        }
+    }
+    loadPlotly();
+</script>

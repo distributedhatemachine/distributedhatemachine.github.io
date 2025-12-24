@@ -1,0 +1,13 @@
+{{ $url := .Get "url" }} {{ $start := .Get "start" }} {{ $end := .Get "end" }}
+{{ $lang := .Get "lang" }} {{ $options := .Get "options" | default
+"linenos=table" }} {{ $resource := resources.GetRemote $url }} {{ with $resource
+}} {{ with .Err }} {{ errorf "Unable to fetch remote resource %s: %s" $url . }}
+{{ else }} {{ $content := .Content }} {{ if or $start $end }} {{ $lines := split
+$content "\n" }} {{ $startLine := sub ($start | default 1 | int) 1 }} {{
+$endLine := $end | default (len $lines) | int }} {{ if lt $startLine 0 }}{{
+$startLine = 0 }}{{ end }} {{ if gt $endLine (len $lines) }}{{ $endLine = len
+$lines }}{{ end }} {{ $content = delimit (first (sub $endLine $startLine) (after
+$startLine $lines)) "\n" }} {{ end }} {{ if not $lang }} {{ $lang = path.Ext
+$url | strings.TrimPrefix "." }} {{ end }} {{ highlight $content $lang $options
+}} {{ end }} {{ else }} {{ errorf "Unable to get remote resource: %s" $url }} {{
+end }}

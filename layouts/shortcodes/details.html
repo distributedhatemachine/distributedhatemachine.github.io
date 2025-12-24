@@ -1,5 +1,7 @@
 <details>
-    <summary>{{ (.Get 0) | markdownify }}</summary>
-    {{ .Inner | markdownify }}
+    <summary>{{ (.Get 0) | safeHTML }}</summary>
+    <div class="details-content">
+        {{ .Inner }}
+    </div>
 </details>
 

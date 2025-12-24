@@ -2,7 +2,7 @@
 <html lang="en-us"
   dir="ltr">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=54894&amp;path=livereload" data-no-instant defer></script>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
 
@@ -20,11 +20,11 @@
 
 
 
-<link rel="icon" type="image/ico" href="//localhost:54894/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="//localhost:54894/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="//localhost:54894/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="192x192" href="//localhost:54894/android-chrome-192x192.png">
-<link rel="apple-touch-icon" sizes="180x180" href="//localhost:54894/apple-touch-icon.png">
+<link rel="icon" type="image/ico" href="//localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="//localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="//localhost:1313/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="//localhost:1313/android-chrome-192x192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="//localhost:1313/apple-touch-icon.png">
 
 <meta name="description" content="Large Language Models -- minus the Large -- on a tiny Jetson Nano."/>
 
@@ -36,17 +36,17 @@
     
 </title>
 
-<link rel="canonical" href="//localhost:54894/posts/jetson/"/>
+<link rel="canonical" href="//localhost:1313/posts/jetson/"/>
 
-<meta property="og:url" content="//localhost:54894/posts/jetson/">
+<meta property="og:url" content="//localhost:1313/posts/jetson/">
   <meta property="og:site_name" content="Distributed Hate Machine">
   <meta property="og:title" content="Reviving Jetson Nano to run some LLMs">
   <meta property="og:description" content="Large Language Models -- minus the Large -- on a tiny Jetson Nano.">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2025-10-20T00:00:00+00:00">
-    <meta property="article:modified_time" content="2025-10-20T00:00:00+00:00">
+    <meta property="article:published_time" content="2025-12-06T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-12-06T00:00:00+00:00">
     <meta property="article:tag" content="Cuda">
     <meta property="article:tag" content="Jetson">
 
@@ -97,7 +97,7 @@
     
 
     <h1 class="header-title">
-        <a href="//localhost:54894/">Distributed Hate Machine</a>
+        <a href="//localhost:1313/">Distributed Hate Machine</a>
     </h1>
 
     <div class="header-menu">
@@ -170,8 +170,8 @@
             <p class="author">Egor </p>
             
             <p class="single-date">
-              <time datetime="2025-10-20T00:00:00&#43;00:00">October 20, 2025</time>
-              &nbsp; · &nbsp;5 min read
+              <time datetime="2025-12-06T00:00:00&#43;00:00">December 6, 2025</time>
+              &nbsp; · &nbsp;10 min read
             </p>
           </div>
         </div>
@@ -187,10 +187,20 @@
         <li><a href="#logging-in">Logging in</a></li>
         <li><a href="#benchmarking">Benchmarking</a>
           <ul>
+            <li><a href="#hourglass">Hourglass</a></li>
+            <li><a href="#understanding-bottleneck">Understanding Bottleneck</a></li>
             <li><a href="#cpu">CPU</a></li>
             <li><a href="#gpu">GPU</a></li>
-            <li><a href="#pondering">Pondering</a></li>
             <li><a href="#bonus-macbook-air-m3">Bonus: Macbook Air M3</a></li>
+            <li><a href="#performance-visualizations">Performance Visualizations</a>
+              <ul>
+                <li><a href="#platform-comparison">Platform Comparison</a></li>
+                <li><a href="#quantization-efficiency">Quantization Efficiency</a></li>
+                <li><a href="#inter-token-latency-distribution">Inter-Token Latency Distribution</a></li>
+                <li><a href="#performance-heatmap">Performance Heatmap</a></li>
+              </ul>
+            </li>
+            <li><a href="#thermal-management">Thermal Management</a></li>
           </ul>
         </li>
         <li><a href="#conclusion">Conclusion</a></li>
@@ -203,7 +213,7 @@
     
     <div class="single-content">
       <p>Seven years ago I bought a Jetson Nano 2GB for $70. I ran some graphics and computer vision examples, but I mostly used it as a multimedia server (I used to watch YouTube and films on an Xbox 360, so it was a less weird alternative).<br>
-Today is someday in October 2025, and I want to bring this beast, with a whopping 128 CUDA cores, back to life and see whether it can survive &ldquo;The Trial of the LLMs&rdquo;.</p>
+Today is some day in December 2025, and I want to bring this beast, with a whopping 128 CUDA cores, back to life and see whether it can survive &ldquo;The Trial of the LLMs&rdquo;.</p>
 <h2 class="heading" id="setup">
   Setup
   <a class="anchor" href="#setup">#</a>
@@ -211,24 +221,30 @@ Today is someday in October 2025, and I want to bring this beast, with a whoppin
 <p>First of all, we need to get Linux running on the machine. The microSD card I bought with the Jetson was used for my DSLR, so let&rsquo;s build an image from scratch.<br>
 I still remember that the official NVIDIA images are a pain; fortunately, we are blessed with a better (and lighter!) alternative: <a href="https://github.com/pythops/jetson-image">pythops/jetson-image</a>.</p>
 <details>
-    <summary>I&rsquo;ve hidden the commands so they don&rsquo;t take up so much space, but providing them is essential because some of them are not trivial.</summary>
-    <ul>
-<li>For some reason I couldn&rsquo;t run it as-is and had to use Multipass to create an Ubuntu VM</li>
-</ul>
-<pre tabindex="0"><code>brew install --cask multipass
+    <summary>I've hidden the commands so they don't take up so much space, but providing them is essential because some of them are not trivial.</summary>
+    <div class="details-content">
+        
+
+- For some reason I couldn't run it as-is and had to use Multipass to create an Ubuntu VM
+```
+brew install --cask multipass
 multipass launch --name builder --cpus 4 --mem 8G --disk 50G jammy
 multipass shell builder
-</code></pre><ul>
-<li>Get Prebuilt MPR</li>
-</ul>
-<pre tabindex="0"><code>wget -qO - &#39;https://proget.makedeb.org/debian-feeds/prebuilt-mpr.pub&#39; | gpg --dearmor | sudo tee /usr/share/keyrings/prebuilt-mpr-archive-keyring.gpg 1&gt; /dev/null
-echo &#34;deb [arch=all,$(dpkg --print-architecture) signed-by=/usr/share/keyrings/prebuilt-mpr-archive-keyring.gpg] https://proget.makedeb.org prebuilt-mpr $(lsb_release -cs)&#34; | sudo tee /etc/apt/sources.list.d/prebuilt-mpr.list
+```
+
+- Get Prebuilt MPR
+```
+wget -qO - 'https://proget.makedeb.org/debian-feeds/prebuilt-mpr.pub' | gpg --dearmor | sudo tee /usr/share/keyrings/prebuilt-mpr-archive-keyring.gpg 1> /dev/null
+echo "deb [arch=all,$(dpkg --print-architecture) signed-by=/usr/share/keyrings/prebuilt-mpr-archive-keyring.gpg] https://proget.makedeb.org prebuilt-mpr $(lsb_release -cs)" | sudo tee /etc/apt/sources.list.d/prebuilt-mpr.list
 sudo apt update
-</code></pre><ul>
-<li>Install some tools</li>
-</ul>
-<pre tabindex="0"><code>sudo apt install -y git just jq podman qemu-user-static
-</code></pre>
+```
+
+- Install some tools
+```
+sudo apt install -y git just jq podman qemu-user-static
+```
+
+    </div>
 </details>
 
 
@@ -245,12 +261,17 @@ cd jetson-image
 <pre tabindex="0"><code>sudo dd if=jetson.img of=/dev/diskN bs=1m
 </code></pre><details>
     <summary>Setting up WiFi</summary>
-    <p>I thought that this would be as easy as</p>
-<pre tabindex="0"><code>sudo nmcli device wifi list
-sudo nmcli device wifi connect &#34;YourSSID&#34; password &#34;YourPassword&#34;
-</code></pre><p>But <code>pythops/jetson-image</code> is too lightweight — even <code>iwconfig</code> or any networking doesn&rsquo;t work.<br>
-I forked the repo and added some files to support networking out of the box — <a href="https://github.com/wtfnukee/jetson-image.git">wtfnukee/jetson-image</a>. It installs the missing packages so the commands above work.</p>
+    <div class="details-content">
+        
+I thought that this would be as easy as
+```
+sudo nmcli device wifi list
+sudo nmcli device wifi connect "YourSSID" password "YourPassword"
+```
+But `pythops/jetson-image` is too lightweight — even `iwconfig` or any networking doesn't work.  
+I forked the repo and added some files to support networking out of the box — [wtfnukee/jetson-image](https://github.com/wtfnukee/jetson-image.git). It installs the missing packages so the commands above work.
 
+    </div>
 </details>
 
 
@@ -260,98 +281,407 @@ I forked the repo and added some files to support networking out of the box — 
 </h2>
 <p>After typing the login <code>jetson</code> and password <code>jetson</code>, we&rsquo;re in!<br>
 Running <code>free -m</code> shows a total of <code>~1700 MB</code> of 64-bit LPDDR4 to spare. That&rsquo;s CPU RAM and GPU VRAM <strong>combined</strong>, so we&rsquo;ll try to use as much of it as possible.</p>
-<p>Obviously, beefy engines like <code>vLLM</code> or <code>sglang</code> are out of the question, so we have to resort to <a href="https://github.com/ggml-org/llama.cpp">llama.cpp</a>. We could write something from scratch using minimal overhead like <a href="https://github.com/karpathy/llama2.c">llama.c</a>, but I want to run modern LLMs and not debug C/C++/Rust code.</p>
+<p>Obviously, beefy engines like <code>vLLM</code> or <code>sglang</code> are out of the question, so we have to resort to <a href="https://github.com/ggml-org/llama.cpp">llama.cpp</a>. We could write something from scratch using minimal overhead like <a href="https://github.com/karpathy/llama2.c">llama.c</a>, but I want to run modern LLMs and not debug C/C++/Rust code. Oh no, that&rsquo;s exactly what I ended up doing.</p>
 <p>Here is the first pitfall: <code>llama.cpp</code> doesn&rsquo;t provide a <code>linux-cuda-arm64-smth</code> binary, so building it from source is the only option.<br>
 Some <a href="https://www.caplaz.com/jetson-nano-running-llama-cpp/">madlad</a> already did this, but they had the 4GB version, it will be interesting to see speed difference.</p>
 <h2 class="heading" id="benchmarking">
   Benchmarking
   <a class="anchor" href="#benchmarking">#</a>
 </h2>
-<p>I thought that just running couple of prompts is too simple, so inspired by <a href="https://modal.com/llm-almanac/how-to-benchmark">LLM&rsquo;s Engineer Almanac by Modal</a> I&rsquo;ve decided to write my own benchmark.</p>
+<p>I thought that just running couple of prompts is too simple, so inspired by <a href="https://modal.com/llm-almanac/how-to-benchmark">LLM&rsquo;s Engineer Almanac by Modal</a> I&rsquo;ve decided to write my own benchmarking tool.</p>
 <p>Original code <a href="https://github.com/modal-labs/stopwatch">modal-labs/stopwatch</a> runs on Modal and tested vLLM, SGLang, and TensorRT-LLM.<br>
-My version <a href="https://github.com/wtfnukee/hourglass">wtfnukee/hourglass</a> is smaller (and probably slower), hence the name. It uses <code>llama-bench</code> suite for now, but I left foundation for handwritten benchmark engine. I&rsquo;ll cover this tool and benchmarking as a topic in separate post.</p>
-<p>Our test subject is <a href="https://huggingface.co/Qwen/Qwen1.5-0.5B-Chat-GGUF">Qwen/Qwen1.5-{size}-Chat-GGUF</a>, 8 model sizes (only 0.5B, 1.8B, 4B dense models, and an MoE model of 14B with 2.7B activated fit) in 8 quanizations (q2_k, q3_k_m, q4_0, q4_k_m, q5_0, q5_k_m, q6_k and q8_0). Following Almanac we&rsquo;ll measure TTFT, ITL, TTLT and throughput on sequences below:</p>
-<pre tabindex="0"><code>128 tokens in / 1024 tokens out  
-256 tokens in / 2048 tokens out  
-512 tokens in / 512 tokens out  
-512 tokens in / 4096 tokens out  
-1024 tokens in / 128 tokens out  
-1024 tokens in / 1024 tokens out  
-2048 tokens in / 256 tokens out  
-2048 tokens in / 2048 tokens out  
-4096 tokens in / 512 tokens out
-</code></pre><p>Chat version was chosen because it handles instructions better and talks more like a human &ndash; which helps when you’re benchmarking alone at 2 a.m. and need emotional support from an AI girlfriend running at 0.3 tokens/s.</p>
+My version <a href="https://github.com/wtfnukee/hourglass">wtfnukee/hourglass</a> is smaller (and focused on edge devices), hence the name.</p>
+<h3 class="heading" id="hourglass">
+  Hourglass
+  <a class="anchor" href="#hourglass">#</a>
+</h3>
+<p>Hourglass is a Rust-based CLI tool specifically designed for benchmarking LLMs on edge devices. Unlike cloud-focused benchmarks, it&rsquo;s optimized for resource-constrained devices with thermal throttling, limited memory, and shared CPU/GPU memory architectures.</p>
+<p>Key Features:</p>
+<ul>
+<li>Multi-Backend Support: CPU, CUDA (Jetson/x86), Metal (Apple Silicon), and Vulkan</li>
+<li>Comprehensive Metrics: TTFT, ITL, TTLT, throughput, system resource usage</li>
+<li>Edge Device Focus: Optimized for devices like Jetson Nano, Raspberry Pi</li>
+<li>System Monitoring: Tracks CPU/GPU usage, memory, temperature, and power consumption</li>
+<li>Structured Output: JSON output for easy analysis and visualization</li>
+</ul>
+<p>Our test subject is <a href="https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF">Qwen/Qwen2.5-{size}-Instruct</a>, 3 model sizes (only 0.5B, 1.5B, 3B dense models) in 8 quantizations (q2_k, q3_k_m, q4_0, q4_k_m, q5_0, q5_k_m, q6_k and q8_0). Following Almanac we&rsquo;ll measure TTFT, ITL, TTLT and throughput on sequences below:</p>
+
+<div class="table-outer">
+    <table>
+        <thead>
+            <tr>
+                <th>in tokens</th>
+                <th>out tokens</th>
+                <th>scenario</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>128</td>
+                <td>1024</td>
+                <td>chat</td>
+            </tr>
+            <tr>
+                <td>256</td>
+                <td>2048</td>
+                <td>long response</td>
+            </tr>
+            <tr>
+                <td>512</td>
+                <td>512</td>
+                <td>balanced</td>
+            </tr>
+            <tr>
+                <td>512</td>
+                <td>4096</td>
+                <td>generation heavy</td>
+            </tr>
+            <tr>
+                <td>1024</td>
+                <td>128</td>
+                <td>completion</td>
+            </tr>
+            <tr>
+                <td>1024</td>
+                <td>1024</td>
+                <td>standard chat</td>
+            </tr>
+            <tr>
+                <td>2048</td>
+                <td>256</td>
+                <td>RAG style</td>
+            </tr>
+            <tr>
+                <td>2048</td>
+                <td>2048</td>
+                <td>long context</td>
+            </tr>
+            <tr>
+                <td>4096</td>
+                <td>512</td>
+                <td>context heavy</td>
+            </tr>
+        </tbody>
+    </table>
+</div><p>Instruct version was chosen because it handles instructions better and talks more like a human &ndash; which helps when you&rsquo;re benchmarking alone at 2 a.m. and need emotional support from an AI girlfriend running at 0.3 tokens/s.</p>
+<h3 class="heading" id="understanding-bottleneck">
+  Understanding Bottleneck
+  <a class="anchor" href="#understanding-bottleneck">#</a>
+</h3>
+<p>Before diving into results, let&rsquo;s understand what limits the Jetson Nano. Here are the key specs:</p>
+<p><strong>Hardware:</strong></p>
+<ul>
+<li>CPU: 4$\times$ ARM Cortex-A57 @ 1.43 GHz</li>
+<li>GPU: 128 CUDA cores (Maxwell) @ 921 MHz max</li>
+<li>Memory: 2GB LPDDR4 @ 1600 MHz</li>
+<li><strong>Memory bandwidth: 25.6 GB/s</strong> (shared between CPU and GPU)</li>
+<li>Storage: Samsung EVO Plus 64GB microSD (~130 MB/s read, ~10 MB/s write)</li>
+</ul>
+<p>People are mocking $4000 DGX Spark for 273GB/s of memory bandwidth, but how do you like tenth of that?</p>
+<p>LLM inference has two phases:</p>
+<ol>
+<li><strong>Prefill (prompt processing):</strong> Memory-bound. Loading model weights dominates.</li>
+<li><strong>Decode (token generation):</strong> Compute-bound. Matrix multiplications on small batches. (Assuming KV cache. Please do.)</li>
+</ol>
+<p>For a model like Qwen2.5-0.5B in Q4 quantization (~408 MB), let&rsquo;s calculate the <a href="https://jax-ml.github.io/scaling-book/inference/">rooflines</a>:</p>
+<p><strong>Prefill arithmetic intensity:</strong></p>
+<ul>
+<li>Must load entire weight matrix: ~408 MB (Q4_0)</li>
+<li>For 512 tokens: 411 $\times$ 2 $\times$ 0.5B params ≈ 411 GFLOP</li>
+<li>Processing in 1 batch (512 batch size): load model once</li>
+<li>Arithmetic intensity: 411 GFLOP / 408 MB ≈ <strong>1,007 FLOP/byte</strong></li>
+</ul>
+<p><strong>Theoretical peak (memory-bound):</strong></p>
+<ul>
+<li>Memory bandwidth: 25.6 GB/s</li>
+<li>Peak prefill: 25.6 GB/s $\times$ 1,007 FLOP/byte ≈ <strong>25.8 TFLOPS</strong></li>
+</ul>
+<p>But the GPU&rsquo;s actual compute: 128 cores $\times$ 921 MHz $\times$ 2 (FMA) ≈ <strong>0.236 TFLOPS</strong></p>
+<p><strong>Prefill is memory-bound</strong> (25.8 TFLOPS $\gg$ 0.236 TFLOPS). We&rsquo;re bandwidth-starved. Bandwidth-fucked, dare I say.</p>
+<p><strong>Observed: 115.89 tokens/s</strong></p>
+<pre tabindex="0"><code>Prefill: 411 tokens in 3.55s = 115.89 t/s
+Throughput: 115.89 t/s $\times$ 1 GFLOP/token $\approx$ 115.89 GFLOPS
+Bandwidth used: 408 MB / 3.55s = 115 MB/s
+Efficiency: 115.89 / 25,800 = 0.45% of theoretical peak
+</code></pre><p>Still only 0.45% efficiency, but <strong>4× faster than CPU</strong> (115.89 vs 28.87 t/s).</p>
+<hr>
+<p><strong>Also:</strong> The model lives on a microSD card. If we exceed 2GB memory and start swapping, we&rsquo;re reading weights at <strong>10-130 MB/s</strong> instead of 25.6 GB/s. That&rsquo;s a <strong>200-2500× slowdown</strong>. Jetson used swap extensively for big models and it was miserable.</p>
+<hr>
+<p><strong>Decode arithmetic intensity:</strong></p>
+<ul>
+<li>Generate 1 token: $\sim$193M FLOPs (24 layers $\times$ 8M FLOPs/layer)</li>
+<li>Must load weights: $\sim$408 MB (assuming no caching)</li>
+<li>With 50% cache hit: $\sim$204 MB per token</li>
+<li>Arithmetic intensity: 193M FLOPs / 204 MB $\approx$ <strong>0.95 FLOP/byte</strong></li>
+</ul>
+<p><strong>Theoretical peak (memory-bound):</strong></p>
+<ul>
+<li>Memory bandwidth: 25.6 GB/s</li>
+<li>Peak decode: 25.6 GB/s $\times$ 0.95 FLOP/byte $\approx$ <strong>24.3 GFLOPS</strong></li>
+<li>GPU compute limit: <strong>236 GFLOPS</strong></li>
+</ul>
+<p><strong>Decode is memory-bound</strong> (24.3 GFLOPS $\ll$ 236 GFLOPS).</p>
+<p><strong>Observed: 8.0 tokens/s</strong></p>
+<pre tabindex="0"><code>Decode: 511 tokens in 63.8s = 8.0 t/s
+Throughput: 8.0 t/s $\times$ 193M FLOP/token = 1.54 GFLOPS
+Efficiency: 1.54 / 24.3 = 6.3% of bandwidth
+</code></pre><p>Only 6.3% efficiency, but typical for single-batch inference on edge devices. GPU is slightly faster than CPU (8.0 vs 7.43 t/s) but not dramatically - both are memory-bound.</p>
 <h3 class="heading" id="cpu">
   CPU
   <a class="anchor" href="#cpu">#</a>
 </h3>
-<p>Well, the Nano says hello&hellip; eventually.</p>
-<p>{{&lt; plotly json=&ldquo;assets/jetson/plotly/cpu.json&rdquo; height=&ldquo;400px&rdquo;&gt;}}</p>
+<p>Well, the Nano says hello&hellip; eventually.<br>
+Loading times are rough: the lightest model (0.5B q2) needs almost 7 seconds, while the heaviest (1.5B q5) takes around 32 seconds.
+Token generation speed is actually fine, ranging from 8 -&gt; 2.5 tok/s for same models. However, the TTFT is so high that using the CPU backend for any latency-sensitive scenario (like interactive chat) becomes impractical. If all you need is simple batch inference or occasional scripted calls, it works - but anything resembling real-time responsiveness is out of reach.</p>
 <h3 class="heading" id="gpu">
   GPU
   <a class="anchor" href="#gpu">#</a>
 </h3>
 <details>
     <summary>Compiling CUDA version</summary>
-    Although I was using <code>gcc-8</code>, compilation failed with &ldquo;unsupported GNU version&rdquo; error. So I just commented check <code>/usr/local/cuda/include/crt/host_config.h</code> (lines 137-141). It compiles and runs smoothly without downgrading <code>gcc</code>.<br>
-And use <code>ccache</code> to speed up compilation.
+    <div class="details-content">
+        
+Although I was using `gcc-8`, compilation failed with "unsupported GNU version" error. So I just commented check `/usr/local/cuda/include/crt/host_config.h` (lines 137-141). It compiles and runs smoothly without downgrading `gcc`.  
+And use `ccache` to speed up compilation.
+
+    </div>
 </details>
 
 
-<p>Even smallest model in q8_0 doesnt fit entirely in GPU, most I&rsquo;ve got is 24/25 layers, 1 on CPU.</p>
-<p>{{&lt; plotly json=&ldquo;assets/jetson/plotly/gpu.json&rdquo; height=&ldquo;400px&rdquo;&gt;}}</p>
-<h3 class="heading" id="pondering">
-  Pondering
-  <a class="anchor" href="#pondering">#</a>
-</h3>
-<p>Joint graph:</p>
-<p>ram only smth mb</p>
+<p>Even the smallest model in q8_0 cannot fully fit on the GPU — the best configuration I managed was 24/25 layers on GPU and 1 on CPU, which introduces a small but noticeable cross-device penalty.
+However, once loaded, things look much better.
+TTFT drops massively, down to 1.2-3 seconds, making the GPU path dramatically more usable for interactive workloads. While the sustained generation speed is roughly similar to the CPU (still around 8 -&gt; ~2.5 tok/s depending on the model), prefill performance sees ~7× improvement, which is exactly where GPU acceleration matters most for LLMs.</p>
 <h3 class="heading" id="bonus-macbook-air-m3">
   Bonus: Macbook Air M3
   <a class="anchor" href="#bonus-macbook-air-m3">#</a>
 </h3>
+<p>Just for fun, I also ran the same tiny models on a MacBook Air M3. Apple’s inference efficiency continues to be ridiculous:</p>
+<pre tabindex="0"><code>0.5B q2_k — results/m3/0.5b-q2_k.json
+prompt_eval_tps: 158,633.26
+eval_tps:        1,186.81
+</code></pre><pre tabindex="0"><code>3B q8_0 — results/m3/3b-q8_0.json
+prompt_eval_tps: 162,720.99
+eval_tps:          524.94
+</code></pre><p>The M3 absolutely obliterates both CPU and GPU results on the Nano, especially in the prompt_eval phase. Even the 3B model runs with surprisingly high throughput for a fanless ultraportable. Apple’s unified memory + optimized Metal kernels continue to make small and mid-sized models feel effortless.</p>
+<h3 class="heading" id="performance-visualizations">
+  Performance Visualizations
+  <a class="anchor" href="#performance-visualizations">#</a>
+</h3>
+<p>
 
-<div class="table-outer">
-    <table>
-        <thead>
-            <tr>
-                <th>model</th>
-                <th style="text-align: center">size</th>
-                <th style="text-align: center">params</th>
-                <th style="text-align: center">backend</th>
-                <th style="text-align: right">threads</th>
-                <th style="text-align: right">test</th>
-                <th style="text-align: right">t/s</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>qwen2 0.5B Q8_0</td>
-                <td style="text-align: center">628.14 MiB</td>
-                <td style="text-align: center">619.57 M</td>
-                <td style="text-align: center">Metal, BLAS</td>
-                <td style="text-align: right">4</td>
-                <td style="text-align: right">pp512</td>
-                <td style="text-align: right">3187.14 ± 21.02</td>
-            </tr>
-            <tr>
-                <td>qwen2 0.5B Q8_0</td>
-                <td style="text-align: center">628.14 MiB</td>
-                <td style="text-align: center">619.57 M</td>
-                <td style="text-align: center">Metal, BLAS</td>
-                <td style="text-align: right">4</td>
-                <td style="text-align: right">tg128</td>
-                <td style="text-align: right">135.11 ± 4.65</td>
-            </tr>
-        </tbody>
-    </table>
-</div><h2 class="heading" id="conclusion">
+
+
+
+
+
+
+
+
+
+
+<figure class="">
+
+    
+    
+      
+        <div class="img-container" style="--w: 3562; --h: 1769;">
+            <img loading="lazy" alt="Performance Scaling" src="/posts/jetson/plots/performance_scaling.png" width="3562" height="1769">
+        </div>
+      
+    
+
+    
+</figure>
+</p>
+<p><em>Left: TTFT vs Model Size | Right: Eval TPS vs Model Size</em></p>
+<p>This chart shows how performance degrades as model size increases across Jetson CPU (purple) and GPU (blue) backends. The GPU shows significant advantages for larger quantizations (Q4_0+), while smaller quantizations (Q2_K) show minimal GPU benefit.</p>
+<h4 class="heading" id="platform-comparison">
+  Platform Comparison
+  <a class="anchor" href="#platform-comparison">#</a>
+</h4>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+<figure class="">
+
+    
+    
+      
+        <div class="img-container" style="--w: 4168; --h: 2369;">
+            <img loading="lazy" alt="Platform Comparison" src="/posts/jetson/plots/platform_comparison.png" width="4168" height="2369">
+        </div>
+      
+    
+
+    
+</figure>
+</p>
+<p>This bar chart compares Jetson CPU vs GPU performance across key metrics:</p>
+<ul>
+<li><strong>TTFT (Time to First Token)</strong>: GPU is ~5-6× faster than CPU for optimal quantizations (Q4_0/Q5_0)</li>
+<li><strong>Eval TPS (Sustained Generation)</strong>: GPU shows modest improvements in sustained token generation</li>
+<li><strong>Prompt Eval TPS</strong>: GPU demonstrates ~80× improvement over CPU in prompt processing due to memory bandwidth advantages</li>
+</ul>
+<h4 class="heading" id="quantization-efficiency">
+  Quantization Efficiency
+  <a class="anchor" href="#quantization-efficiency">#</a>
+</h4>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+<figure class="">
+
+    
+    
+      
+        <div class="img-container" style="--w: 3247; --h: 1768;">
+            <img loading="lazy" alt="Memory Performance Tradeoff" src="/posts/jetson/plots/memory_performance_tradeoff.png" width="3247" height="1768">
+        </div>
+      
+    
+
+    
+</figure>
+
+This scatter plot reveals the efficiency of different quantization levels on Jetson:</p>
+<ul>
+<li>Q2_K provides the best performance per GB for CPU</li>
+<li>Q4_0/Q5_0 show better GPU utilization despite larger size</li>
+<li>Color intensity represents absolute Eval TPS performance</li>
+</ul>
+<h4 class="heading" id="inter-token-latency-distribution">
+  Inter-Token Latency Distribution
+  <a class="anchor" href="#inter-token-latency-distribution">#</a>
+</h4>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+<figure class="">
+
+    
+    
+      
+        <div class="img-container" style="--w: 3569; --h: 1769;">
+            <img loading="lazy" alt="ITL Distribution" src="/posts/jetson/plots/itl_distribution.png" width="3569" height="1769">
+        </div>
+      
+    
+
+    
+</figure>
+
+The ITL distribution shows:</p>
+<ul>
+<li>Jetson CPU and GPU have similar latency profiles for token generation</li>
+<li>Most tokens are generated in 100-150ms range</li>
+<li>Some outliers show occasional performance hiccups</li>
+</ul>
+<h4 class="heading" id="performance-heatmap">
+  Performance Heatmap
+  <a class="anchor" href="#performance-heatmap">#</a>
+</h4>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+<figure class="">
+
+    
+    
+      
+        <div class="img-container" style="--w: 3873; --h: 2368;">
+            <img loading="lazy" alt="Performance Heatmap" src="/posts/jetson/plots/performance_heatmap.png" width="3873" height="2368">
+        </div>
+      
+    
+
+    
+</figure>
+
+This heatmap shows Eval TPS across different scenarios for Jetson CPU vs GPU:</p>
+<ul>
+<li>GPU shows consistent advantages across most scenarios</li>
+<li>Performance varies based on input/output token ratios</li>
+<li>Chat scenarios (128_in_1024_out) show best relative GPU improvements</li>
+</ul>
+<h3 class="heading" id="thermal-management">
+  Thermal Management
+  <a class="anchor" href="#thermal-management">#</a>
+</h3>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+<figure class="">
+
+    
+    
+      
+        <div class="img-container" style="--w: 964; --h: 1280;">
+            <img loading="lazy" alt="Thermal solution" src="/posts/jetson/thermal_management.jpg" width="964" height="1280">
+        </div>
+      
+    
+
+    
+</figure>
+
+Heatsink stabilizes at 60C under sustained load, so to avoid thermal throttling I needed to swap gin bottle and coffee server full of ice between freezer and heatsink.<br>
+I also got Overcurrent Alarm, maybe because I fed my 10W Jetson with 120W Macbook Pro charger, but I&rsquo;m not sure, I couldn&rsquo;t google problem cause.</p>
+<h2 class="heading" id="conclusion">
   Conclusion
   <a class="anchor" href="#conclusion">#</a>
 </h2>
-<p>Not bad for a $70 board from 2018. Sure, it&rsquo;s 100x slower than an M3, but it&rsquo;s running actual LLM inference on a device that’s mostly heatsink and hopes.</p>
-<p>Still, it&rsquo;s only thing with CUDA cores (alas outdated but 5 generations. I mean, Ada Lovelace has <a href="https://arc.net/l/quote/bxycrgmj">128 CUDA cores are included in <strong>each</strong> SM</a>) I own and have direct access.</p>
+<p>Not bad for a $70 board from 2018. Sure, it&rsquo;s 100x slower than an M3, but it&rsquo;s running actual LLM inference on a device that&rsquo;s mostly heatsink and hopes.</p>
+<p>Still, it&rsquo;s only thing with CUDA cores (alas outdated but 5 generations. I mean, Ada Lovelace has <a href="https://en.wikipedia.org/wiki/Ada_Lovelace_(microarchitecture)#:~:text=128%20CUDA%20cores%20are%20included%20in%20each%20SM.">128 CUDA cores are included in <strong>each</strong> SM</a>) I own and have direct access.</p>
 <p>I&rsquo;ve just started digging deeper into CUDA, so expect more posts soon.</p>
+<hr>
+<p>I spent four days juggling bottles to get these numbers.<br>
+Literally.<br>
+Because of that, producing good plots was harder than producing the data itself. I wasn’t entirely sure what to visualize, what comparisons would be meaningful, or which metrics deserved the spotlight. So for now, please rely on the textual results and analysis above. Proper graphs will come later, once I stop using my kitchenware as a thermal management system.</p>
 <h2 class="heading" id="acknowledgments">
   Acknowledgments
   <a class="anchor" href="#acknowledgments">#</a>
@@ -360,7 +690,7 @@ And use <code>ccache</code> to speed up compilation.
 <li>steelph0enix for <a href="https://blog.steelph0enix.dev/posts/llama-cpp-guide/#llama-bench">llama.cpp guide</a></li>
 <li>Modal (pls hire me) for <a href="https://modal.com/llm-almanac/how-to-benchmark">LLM&rsquo;s Engineer Almanac</a></li>
 <li>pythops for <a href="https://github.com/pythops/jetson-image">jetson-image</a> and <a href="https://github.com/pythops/tegratop">tegratop</a></li>
-<li>Waiting for <a href="https://benchmarking.science/">benchmarking.science workshop</a>!</li>
+<li>last moment finding <a href="https://www.jetson-ai-lab.com/index.html">Nvidia Jetson AI Lab</a></li>
 </ul>
 
     </div>
@@ -380,14 +710,23 @@ And use <code>ccache</code> to speed up compilation.
 
         <div class="single-pagination-prev">
             
+            <div class="single-pagination-container-prev">
+                <div class="single-pagination-text">←</div>
+                <div class="single-pagination-text">
+                    <a href="/posts/triton-anatomy/">
+                        Anatomy of Triton
+                    </a>
+                </div>
+            </div>
+            
         </div>
 
         <div class="single-pagination-next">
             
             <div class="single-pagination-container-next">
                 <div class="single-pagination-text">
-                    <a href="/posts/kernels/">
-                        Running kernels modal style
+                    <a href="/posts/infiniband/">
+                        Infiniband
                     </a>
                 </div>
                 <div class="single-pagination-text">→</div>

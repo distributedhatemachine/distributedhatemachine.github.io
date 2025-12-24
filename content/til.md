@@ -12,6 +12,7 @@ https://ehsanmkermani.com/2023/12/08/modal-labs-deep-dive/
 https://erikbern.com/2022/12/07/what-ive-been-working-on-modal
 https://netflixtechblog.medium.com/mount-mayhem-at-netflix-scaling-containers-on-modern-cpus-f3b09b68beac
 https://arxiv.org/pdf/2507.04786
+https://habr.com/ru/companies/yandex/articles/860562/
 
 ## 2025-11-25
 https://joomy.korkutblech.com/posts/2025-11-23-why-i-refuse.html

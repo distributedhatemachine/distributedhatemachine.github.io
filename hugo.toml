@@ -7,6 +7,7 @@ googleAnalytics = "G-0KWR5673B0"
 
 [taxonomies]
 tag = 'tags'
+series = 'series'
 
 [params]
 # Meta description
@@ -75,11 +76,11 @@ url = "/til"
 # Syntax highlight on code blocks
 [markup]
 [markup.highlight]
-style = 'python'
+style = 'apl'
 
 [markup.tableOfContents]
 startLevel = 1
-endLevel = 3
+endLevel = 4
 
 [caches]
   [caches.images]
