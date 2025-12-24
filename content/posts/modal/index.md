@@ -32,7 +32,7 @@ I've also been huge fan of [Modal](modal.com) and while researching their approa
 
 ## Design
 Before even opening your editor of choice (or prompting your favourite LLM) one should ask yourself "How do I want to do this?". Or rather "How do I even approach this?".  
-I've already drafted most of architecture when i encountered two year old [Modal Labs Deep Dive](https://ehsanmkermani.com/2023/12/08/modal-labs-deep-dive/). While some interfaces changed, core ideas stay the same:
+I've already drafted most of architecture when i encountered two year old [Modal Labs Deep Dive](https://ehsanmkermani.com/2023/12/08/modal-labs-deep-dive/). While some interfaces changed, [core ideas](https://infrastructurefromcode.com/) stay the same:
 - The Python script is the source of truth. No YAML, no Terraform, no Dockerfiles. If I write @app.function, the system must figure out the rest.
   - "Modal’s goal is to make running code in the cloud feel like you’re running code locally. You don’t need to run any commands to rebuild, push containers, or go to a web UI to download logs."
 - I don't want to spend any extra time on wrangling with infra - I as user am an ML Engineer, not a Devops
@@ -52,8 +52,8 @@ Here's the rewritten section with the requested changes:
   -  This replaces Persistent Volume Claim in K8s without latency of S3
 4. Secrets - it's nice to have convenient secrets management for OpenAI API keys for your AI notetaker app
 5. Webpoints - expose your function to other team via REST for fast prototyping
-6. Scheduler
-6. App - this is entrypoint that ties the infrastructure to the code.
+6. Scheduler - run jobs periodically (e.g. with Cron)
+7. App - this is entrypoint that ties the infrastructure to the code.
 
 ## SDK
 Before drawing backend architecture on whiteboard, lets focus on user facing side.  
@@ -69,7 +69,7 @@ future = my_func.spawn(5)  # returns immediately
 result = future.result()   # blocks when you need the result
 ```
 We often run batch jobs
-```
+```python
 futures = my_func.map([1, 2, 3, 4, 5])
 # or results = [f.result() for f in futures]
 results = gather(*futures)
@@ -106,7 +106,10 @@ app = modal.App()
 def foo():
     pass
 ```
-Like cmon, just replace modal with minimodal. You wont use this anyway. Or if you do (link to same part for minimodal on github)
+Like cmon, just replace modal with minimodal. You wont use this anyway. Or if you do [wtfnukee/minimodal/sdk/app.py](https://github.com/wtfnukee/minimodal/blob/main/minimodal/sdk/app.py)
+
+> Claude suggested that I write about implementing Secrets, Volumes and Webpoints  
+> They really implemented and work as expected, but it's not that interesting.
 
 ## Whiteboard
 Okay, here's truly fun part - designing engine.
@@ -115,7 +118,7 @@ Okay, here's truly fun part - designing engine.
 We've established what we want from the system, but how is it implemented?
 
 ## Functions
-Below I'll use terms pickle and [cloudpickle](https://github.com/cloudpipe/cloudpickle) interchangeable, but of course use only cloupickle as it is safer alternative. 
+Below I'll use terms pickle and [cloudpickle](https://github.com/cloudpipe/cloudpickle) interchangeable, but of course use only cloudpickle as it is safer alternative. 
 
 Each function goes through three stages:
 ### Deploy
@@ -163,12 +166,29 @@ It has three functions:
 - Resource allocation between operations.
 
 What is implemented:
-- User Isolation: Each user has their own task queue preventing resource starvation
-- Concurrency Limits: Users are capped at their quota limit for parallel tasks
-- Round-Robin Fairness: Fair distribution across eligible users
-- Bin Packing: Match task resource requirements to worker capabilities
-- Resource-Aware: Consider CPU and memory requirements when assigning tasks  
+- **User Isolation**: Each user has their own task queue preventing resource starvation
+- **Concurrency Limits**: Users are capped at their quota limit for parallel tasks (default: 5)
+- **Round-Robin Fairness**: Fair distribution across eligible users
+- **Bin Packing**: Match task resource requirements to worker capabilities
+- **Resource-Aware**: Consider CPU and memory requirements when assigning tasks
+
 Last two points are still under heavy work.
+
+#### Multi-tenancy in Practice
+The key insight from YTsaurus is that a shared compute platform must prevent one user from starving others. If Alice submits 1000 tasks and Bob submits 1, Bob shouldn't wait for all of Alice's work to complete.
+
+Each user gets their own queue with a configurable quota (stored in `UserRecord`). The scheduler round-robins through users who have pending tasks AND haven't hit their limit:
+
+```python
+# Simplified scheduling logic
+for user in users_with_pending_tasks:
+    if user.active_count < user.quota_limit:
+        task = user.queue.pop()
+        assign_to_available_worker(task)
+        user.active_count += 1
+```
+
+This means Bob's single task gets scheduled in the next round, even if Alice has 999 tasks waiting.
 
 Scheduling Flow:
 1. Tasks are enqueued per user in `TaskScheduler`
@@ -209,6 +229,18 @@ CMD ["python", "-c", "print('Container ready')"]
 '''
 ```
 
+#### Content-Based Caching
+Remember that "tight feedback loop" design goal? If you change your code but not your dependencies, why rebuild the entire image?
+
+Each `Image` object computes a content hash from its configuration:
+```python
+def content_hash(self) -> str:
+    content = f"{self._base}|{self._apt_packages}|{self._pip_packages}|..."
+    return hashlib.sha256(content.encode()).hexdigest()[:12]
+```
+
+Before building, we check: `if image_exists(f"minimodal:{hash}"): return cached`. Same deps = same hash = skip the build. This is why iterating on function code feels instant - the image layer is already there.
+
 I have this diagram to sum up all I've said before about control plane
 ![server_diagram.png](server_diagram.png)
 
@@ -230,6 +262,54 @@ While the worker process could execute functions directly, that would defeat the
 
 Resource management ensures tasks run efficiently by validating system capabilities and enforcing resource limits. The worker uses soft CPU limits for fair distribution, hard memory limits to prevent OOM errors, and process limits to guard against fork bombs. Before executing a task, the worker checks system resources, worker configuration, and task requirements to determine feasible allocations, preventing the "works on my machine" problem.
 
+## Fault Tolerance
+In distributed systems, failures aren't exceptions - they're expected. Network hiccups, OOM kills, timeouts. A production system needs to handle these gracefully.
+
+### Retries with Exponential Backoff
+Each function can specify its retry behavior:
+```python
+@app.function(timeout=60, max_retries=3, retry_backoff_base=2.0)
+def flaky_api_call():
+    ...
+```
+
+When a task fails, we don't retry immediately (that would likely fail again). Instead:
+- 1st retry: wait `2^0 = 1` second
+- 2nd retry: wait `2^1 = 2` seconds
+- 3rd retry: wait `2^2 = 4` seconds
+
+This gives transient issues time to resolve.
+
+### Dead Letter Queue
+What happens after all retries are exhausted? The task moves to a Dead Letter Queue with status `DEAD_LETTER`. This prevents poison messages from blocking the system while preserving them for inspection:
+```
+GET /dead-letter-queue → list of permanently failed tasks
+POST /dead-letter-queue/{id}/retry → manual retry after fixing the issue
+```
+
+### Circuit Breaker
+If a worker fails 5 tasks within a 5-minute window, something is probably wrong with that worker (bad state, network issues, resource exhaustion). The circuit breaker "trips" - marking the worker unhealthy and stopping task assignment for a cooldown period. After 60 seconds, we cautiously try again.
+
+This prevents a failing worker from consuming (and failing) the entire task queue.
+
+## Observability
+You can't fix what you can't see. MiniModal exposes several endpoints for monitoring:
+
+- `GET /health` - Basic liveness check
+- `GET /ready` - Readiness probe (DB connected, scheduler running)
+- `GET /stats` - System overview: function count, invocation counts by status, worker states, queue depth, average task duration
+
+The stats endpoint is particularly useful for debugging:
+```json
+{
+  "invocations": {"queued": 5, "running": 2, "completed": 1847, "failed": 3},
+  "workers": {"total": 4, "idle": 2, "busy": 2},
+  "uptime_seconds": 3600
+}
+```
+
+I also vibecoded dashboard, which you can see in demo ar a top of the post.
+
 ## Storage
 There's more to tell than just Volumes.
 ```
@@ -245,10 +325,12 @@ What do we actually want to store on our drives? This understanding can help us 
 - The User's Workspace: Mounting local files as volumes.
 
 ## Lessons learned and Roadmap
-Building MiniModal started as a way to kill time during unemployment, but it is fun way to implement everything I read in year. To wrap up this post, here is what we’ve achieved:
+Building MiniModal started as a way to kill time during unemployment, but it is fun way to implement everything I read in year. To wrap up this post, here is what we've achieved:
 - A Pythonic SDK: Distributed computing that feels like writing local code.
-- WebSockets Everywhere: A high-performance, push-based architecture that eliminates the overhead of HTTP polling. By using persistent connections for task dispatching, log tailing, and result streaming, MiniModal achieves a level of responsiveness that feels truly local.
+- WebSockets Everywhere: A high-performance, push-based architecture that eliminates the overhead of HTTP polling.
 - True Isolation: Container-based execution that ensures "if it works on my machine, it works in the cloud."
-- Production Features: Built-in support for Volumes, Secrets, and Web endpoints.
+- Production-Grade Fault Tolerance: Retries with exponential backoff, dead letter queues, and circuit breakers.
+- Multi-Tenant Scheduling: YTsaurus-inspired fair scheduling with per-user quotas.
+- Content-Based Caching: Same dependencies = skip the rebuild.
 
 This might be the end of this blog, but it’s just the beginning for MiniModal. There is a lot of things left unimplemented or not talked about so stay tuned and check out repo [wtfnukee/minimodal](https://github.com/wtfnukee/minimodal).
