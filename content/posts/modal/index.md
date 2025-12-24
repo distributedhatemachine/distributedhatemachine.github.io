@@ -166,11 +166,11 @@ It has three functions:
 - Resource allocation between operations.
 
 What is implemented:
-- **User Isolation**: Each user has their own task queue preventing resource starvation
-- **Concurrency Limits**: Users are capped at their quota limit for parallel tasks (default: 5)
-- **Round-Robin Fairness**: Fair distribution across eligible users
-- **Bin Packing**: Match task resource requirements to worker capabilities
-- **Resource-Aware**: Consider CPU and memory requirements when assigning tasks
+- User Isolation: Each user has their own task queue preventing resource starvation
+- Concurrency Limits: Users are capped at their quota limit for parallel tasks (default: 5)
+- Round-Robin Fairness: Fair distribution across eligible users
+- Bin Packing: Match task resource requirements to worker capabilities
+- Resource-Aware: Consider CPU and memory requirements when assigning tasks
 
 Last two points are still under heavy work.
 
