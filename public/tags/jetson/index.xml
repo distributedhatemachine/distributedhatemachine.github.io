@@ -15,12 +15,5 @@
       <guid>//localhost:1313/posts/jetson/</guid>
       <description>Large Language Models &amp;ndash; minus the Large &amp;ndash; on a tiny Jetson Nano.</description>
     </item>
-    <item>
-      <title>Running kernels modal style</title>
-      <link>//localhost:1313/posts/kernels/</link>
-      <pubDate>Wed, 19 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/posts/kernels/</guid>
-      <description>Large Language Models—minus the Large—on a tiny Jetson Nano.</description>
-    </item>
   </channel>
 </rss>

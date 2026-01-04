@@ -14,7 +14,7 @@ series = 'series'
 description = "Distributed Hate Machine"
 
 # Appearance settings
-theme = 'auto'
+theme = 'dark'
 colorPalette = 'default'
 hideHeader = false
 

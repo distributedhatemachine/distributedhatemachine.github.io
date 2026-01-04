@@ -22,12 +22,5 @@
       <guid>//localhost:1313/posts/triton-anatomy/</guid>
       <description>Dissecting Triton and writing small LLM purely in it</description>
     </item>
-    <item>
-      <title>Running kernels modal style</title>
-      <link>//localhost:1313/posts/kernels/</link>
-      <pubDate>Wed, 19 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/posts/kernels/</guid>
-      <description>Large Language Models—minus the Large—on a tiny Jetson Nano.</description>
-    </item>
   </channel>
 </rss>
