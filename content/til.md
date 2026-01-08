@@ -7,6 +7,24 @@ toc: true
 hideBackToTop: false
 ---
 
+## 2026-01-06
+https://unix.stackexchange.com/questions/141016/a-laymans-explanation-for-everything-is-a-file-what-differs-from-windows
+https://world.hey.com/dhh/why-we-re-leaving-the-cloud-654b47e0
+https://www.youtube.com/watch?v=K_r-nX_y9aM
+https://blog.vllm.ai/2025/10/28/Kimi-K2-Accuracy.html
+https://deep-reinforce.com/defense_kernel_hack.html
+https://deep-reinforce.com/correctness_check.html
+
+## 2026-01-05
+https://rpallas.xyz/1brc/
+https://github.com/kripner/nanoproof
+https://github.com/criterion-rs/criterion.rs
+https://arxiv.org/abs/2502.19811
+https://www.youtube.com/watch?v=Fb4UoqXPEtI
+https://tekbog.substack.com/p/staying-ahead-of-the-culture
+https://manus.im/blog/Context-Engineering-for-AI-Agents-Lessons-from-Building-Manus
+
+
 ## 2025-12-13
 https://ehsanmkermani.com/2023/12/08/modal-labs-deep-dive/
 https://erikbern.com/2022/12/07/what-ive-been-working-on-modal
