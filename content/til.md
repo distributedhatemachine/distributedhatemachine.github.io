@@ -7,33 +7,43 @@ toc: true
 hideBackToTop: false
 ---
 
+## 2026-01-09
+- [Creating our Own Kubernetes & Docker to Run Our Data Infrastructure | Modal](https://www.youtube.com/watch?v=3jJ1GhGkLY0)
+
+## 2026-01-07
+- [LLM inference economics](https://www.tensoreconomics.com/p/llm-inference-economics-from-first)
+
+
 ## 2026-01-06
-https://unix.stackexchange.com/questions/141016/a-laymans-explanation-for-everything-is-a-file-what-differs-from-windows
-https://world.hey.com/dhh/why-we-re-leaving-the-cloud-654b47e0
-https://www.youtube.com/watch?v=K_r-nX_y9aM
-https://blog.vllm.ai/2025/10/28/Kimi-K2-Accuracy.html
-https://deep-reinforce.com/defense_kernel_hack.html
-https://deep-reinforce.com/correctness_check.html
+- [Everything is file in Linux](https://unix.stackexchange.com/questions/141016/a-laymans-explanation-for-everything-is-a-file-what-differs-from-windows)
+- [DHH on Why we're leaving the cloud](https://world.hey.com/dhh/why-we-re-leaving-the-cloud-654b47e0)
+- [Elevating ML infrastructure with Modal Labs CEO Erik Bernhardsson](https://www.youtube.com/watch?v=K_r-nX_y9aM)
+- [A Deep Dive into Debugging Kimi K2's Tool-Calling on vLLM](https://blog.vllm.ai/2025/10/28/Kimi-K2-Accuracy.html)
+- [Hacks and Defenses in Automatic GPU Kernel Generation](https://deep-reinforce.com/defense_kernel_hack.html)
+- [Towards a Reliable Kernel Correctness Check in Matrix Multiplication](https://deep-reinforce.com/correctness_check.html)
+- [A list of recommended research papers and other readings on data visualization](https://github.com/mathisonian/awesome-visualization-research)
+- [fasterthanlime on How I learned to love build systems](https://www.youtube.com/watch?v=7_DExGdUw7w)
+- [Defeating Nondeterminism in LLM Inference](https://thinkingmachines.ai/blog/defeating-nondeterminism-in-llm-inference/)
 
 ## 2026-01-05
-https://rpallas.xyz/1brc/
-https://github.com/kripner/nanoproof
-https://github.com/criterion-rs/criterion.rs
-https://arxiv.org/abs/2502.19811
-https://www.youtube.com/watch?v=Fb4UoqXPEtI
-https://tekbog.substack.com/p/staying-ahead-of-the-culture
-https://manus.im/blog/Context-Engineering-for-AI-Agents-Lessons-from-Building-Manus
+- [Rust 1 Billion Row Challenge without Dependencies](https://rpallas.xyz/1brc/)
+- [Minimal open-source implementation of AlphaProof](https://github.com/kripner/nanoproof)
+- [Statistics-driven Microbenchmarking in Rust](https://github.com/criterion-rs/criterion.rs)
+- [Comet: Fine-grained Computation-communication Overlapping for Mixture-of-Experts](https://arxiv.org/abs/2502.19811)
+- [Operation Binder: Secrets of Inter-Process Communication](https://www.youtube.com/watch?v=Fb4UoqXPEtI)
+- [staying ahead of the culture](https://tekbog.substack.com/p/staying-ahead-of-the-culture)
+- [Context Engineering for AI Agents: Lessons from Building Manus](https://manus.im/blog/Context-Engineering-for-AI-Agents-Lessons-from-Building-Manus)
 
 
 ## 2025-12-13
-https://ehsanmkermani.com/2023/12/08/modal-labs-deep-dive/
-https://erikbern.com/2022/12/07/what-ive-been-working-on-modal
-https://netflixtechblog.medium.com/mount-mayhem-at-netflix-scaling-containers-on-modern-cpus-f3b09b68beac
-https://arxiv.org/pdf/2507.04786
-https://habr.com/ru/companies/yandex/articles/860562/
+- [CEO of Modal on early days](https://erikbern.com/2022/12/07/what-ive-been-working-on-modal)
+- [Mount Mayhem at Netflix: Scaling Containers on Modern CPUs](https://netflixtechblog.medium.com/mount-mayhem-at-netflix-scaling-containers-on-modern-cpus-f3b09b68beac)
+- [Demystifying NCCL: An In-depth Analysis of GPU
+Communication Protocols and Algorithms](https://arxiv.org/pdf/2507.04786)
+- [Resource fair share in YTsaurus](https://habr.com/ru/companies/yandex/articles/860562/)
 
 ## 2025-11-25
-https://joomy.korkutblech.com/posts/2025-11-23-why-i-refuse.html
+- [Why I refuse to learn type-level programming in Haskell](https://joomy.korkutblech.com/posts/2025-11-23-why-i-refuse.html)
 
 ## 2025-11-21
 https://www.mlsysbook.ai/contents/core/introduction/introduction.html
