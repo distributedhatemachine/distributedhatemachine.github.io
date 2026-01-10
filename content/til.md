@@ -9,6 +9,11 @@ hideBackToTop: false
 
 ## 2026-01-09
 - [Creating our Own Kubernetes & Docker to Run Our Data Infrastructure | Modal](https://www.youtube.com/watch?v=3jJ1GhGkLY0)
+- [Health check expectations](https://www.clustermax.ai/health-checks)
+- [CUDA Ontology](https://jamesakl.com/posts/cuda-ontology/)
+- [Warp Specialization in Triton: Design and Roadmap](https://pytorch.org/blog/warp-specialization-in-triton-design-and-roadmap)
+- [Keeping 20,000 GPUs healthy](https://modal.com/blog/gpu-health)
+- [DFlash: Block Diffusion for Flash Speculative Decoding](https://z-lab.ai/projects/dflash/)
 
 ## 2026-01-07
 - [LLM inference economics](https://www.tensoreconomics.com/p/llm-inference-economics-from-first)
