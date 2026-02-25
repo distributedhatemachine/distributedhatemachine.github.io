@@ -7,6 +7,25 @@ toc: true
 hideBackToTop: false
 ---
 
+# TIL on indefinite hiatus. It's not that interesting to look at someone else reading list. Just ask me any question.
+
+## 2026-01-28
+https://siboehm.com/articles/22/CUDA-MMM
+
+## 2026-01-14
+- [reinforcement learning guide](https://naklecha.notion.site/a-reinforcement-learning-guide)
+https://modal.com/blog/flux-3x-faster
+https://huggingface.co/docs/diffusers/main/en/tutorials/fast_diffusion
+https://huggingface.co/docs/diffusers/main/en/optimization/fp16
+https://modal.com/docs/examples/sglang_low_latency
+https://modal.com/docs/guide/high-performance-llm-inference
+https://modal.com/docs/examples/torch_profiling
+https://modal.com/docs/examples/vllm_throughput
+https://blog.escalante.bio/180-lines-of-code-to-win-the-in-silico-portion-of-the-adaptyv-nipah-binding-competition/
+https://x.com/GoAbiAryan/status/1988388223668691308
+https://www.skeptrune.com/posts/todolist-standup/
+
+
 ## 2026-01-09
 - [Creating our Own Kubernetes & Docker to Run Our Data Infrastructure | Modal](https://www.youtube.com/watch?v=3jJ1GhGkLY0)
 - [Health check expectations](https://www.clustermax.ai/health-checks)
